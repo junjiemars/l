@@ -1,5 +1,11 @@
 #lang racket
 
+(define (integer->bytes n)
+  (map (λ (x y z)
+         (arithmetic-shift (bitwise-and x y) z))
+       (list n n n n)
+       '(#xff000000 #x00ff0000 #x0000ff00 #x000000ff)
+       '(-24 -16 -8 0)))
 
 (define ipv4->integer
   (case-lambda
@@ -22,12 +28,7 @@
 (define ipv4->string
   (case-lambda
     [(n)
-     (match-let ([(list a b c d)
-                  (map (λ (x y z)
-                         (arithmetic-shift (bitwise-and x y) z))
-                       (list n n n n)
-                       '(#xff000000 #x00ff0000 #x0000ff00 #x000000ff)
-                       '(-24 -16 -8 0))])
+     (match-let ([(list a b c d) (integer->bytes n)])
        (ipv4->string a b c d))]
     [(a b c d)
      (let* ([ss (map number->string
@@ -59,38 +60,36 @@
         #xfefffffe))
 
 
-(define (ipv4-private? s)
-  (let ([xs (second (ipv4->integer s))])
-    (match xs
-      [(list 0 0 0 0) #t]
-      [(list 10 _ _ _) #t]
-      [(list 127 _ _ _) #t]
-      [(list 172 16 _ _) #t]
-      [(list 192 168 _ _) #t]
-      [_ #f])))
+(define (ipv4-private? ns)
+  (match ns
+    [(list 0 0 0 0) #t]
+    [(list 10 _ _ _) #t]
+    [(list 127 _ _ _) #t]
+    [(list 172 16 _ _) #t]
+    [(list 192 168 _ _) #t]
+    [_ #f]))
 
 
 
-(define (ipv4-class s)
-  (let ([i (first (ipv4->integer s))])
-    (cond
-      [(and (>= i (car class-a)) (< i (cdr class-a)))
-       (cons "Class A" class-a)]
-      [(and (>= i (car class-b)) (< i (cdr class-b)))
-       (cons "Class B" class-b)]
-      [(and (>= i (car class-c)) (< i (cdr class-c)))
-       (cons "Class C" class-c)]
-      [(and (>= i (car class-d)) (< i (cdr class-d)))
-       (cons "Class D" class-d)]
-      [(and (>= i (car class-e)) (< i (cdr class-e)))
-       (cons "Class E" class-e)])))
+(define (ipv4-class n)
+  (cond
+    [(and (>= n (car class-a)) (< n (cdr class-a)))
+     (cons "Class A" class-a)]
+    [(and (>= n (car class-b)) (< n (cdr class-b)))
+     (cons "Class B" class-b)]
+    [(and (>= n (car class-c)) (< n (cdr class-c)))
+     (cons "Class C" class-c)]
+    [(and (>= n (car class-d)) (< n (cdr class-d)))
+     (cons "Class D" class-d)]
+    [(and (>= n (car class-e)) (< n (cdr class-e)))
+     (cons "Class E" class-e)]))
 
 
 (define (ipv4-netmask n)
   (let ([m #xffffffff])
     (bitwise-xor m (arithmetic-shift m (- n)))))
 
-(define (integer->binary-string ns)
+(define (bytes->string-in-binary ns)
   (string-join (map (λ (x)
                       (~r x
                           #:base 2
@@ -100,10 +99,39 @@
                "."))
 
 (define (ipv4-calculate s)
-  (let* ([ns (ipv4->integer s)]
-         [address (string-join (map number->string
-                                    (second ns))
-                                    ".")]
-         [netmask (ipv4-netmask (third ns))])
-    (hash "address" (cons address (integer->binary-string (second ns)))
-          "network" (car (ipv4->string netmask) ))))
+  (let* ([nl (ipv4->integer s)]
+         [n (first nl)]
+         [ns (second nl)]
+         [nm (third nl)]
+         [address (string-join (map number->string ns)
+                               ".")]
+         [netmask (ipv4-netmask nm)]
+         [wildcard (bitwise-xor netmask #xffffffff)]
+         [network (bitwise-and netmask n)]
+         [broadcast (bitwise-ior network wildcard)]
+         [hostmin (bitwise-ior network 1)]
+         [hostmax (sub1 broadcast)]
+         [hosts (add1 (- hostmax hostmin))])
+    (hash "ADDRESS" (cons address (bytes->string-in-binary ns))
+          "NETMASK" (cons (car (ipv4->string netmask))
+                          (bytes->string-in-binary (integer->bytes netmask)))
+          "WILDCARD" (cons (car (ipv4->string wildcard))
+                           (bytes->string-in-binary
+                            (integer->bytes wildcard)))
+          "NETWORK" (cons (string-append (car (ipv4->string network))
+                                         "/" (number->string nm))
+                          (bytes->string-in-binary (integer->bytes network)))
+          "BROADCAST" (cons (car (ipv4->string broadcast))
+                            (bytes->string-in-binary
+                             (integer->bytes broadcast)))
+          "HOSTMIN" (cons (car (ipv4->string hostmin))
+                          (bytes->string-in-binary
+                           (integer->bytes hostmin)))
+          "HOSTMAX" (cons (car (ipv4->string hostmax))
+                          (bytes->string-in-binary
+                           (integer->bytes hostmax)))
+          "HOSTS/NET" (cons hosts
+                            (string-append (car (ipv4-class n))
+                                           (if (ipv4-private? ns)
+                                               " (Private Network)"
+                                               ""))))))
