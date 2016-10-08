@@ -90,10 +90,20 @@
   (let ([m #xffffffff])
     (bitwise-xor m (arithmetic-shift m (- n)))))
 
+(define (integer->binary-string ns)
+  (string-join (map (λ (x)
+                      (~r x
+                          #:base 2
+                          #:pad-string "0"
+                          #:min-width 8))
+                    ns)
+               "."))
+
 (define (ipv4-calculate s)
   (let* ([ns (ipv4->integer s)]
          [address (string-join (map number->string
                                     (second ns))
                                     ".")]
          [netmask (ipv4-netmask (third ns))])
-    netmask))
+    (hash "address" (cons address (integer->binary-string (second ns)))
+          "network" (car (ipv4->string netmask) ))))
