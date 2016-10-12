@@ -53,3 +53,9 @@
     [(x y) (square (+ x y))]
     [(x y z) (square (+ x y z))]
     [(x y z . args) (square (+ x y z (apply + args)))]))
+
+
+; fn call
+((λ (f x) (f (f x)))
+ square 3)
+
