@@ -6,7 +6,7 @@
   (+ x y))
 
 (define f2
-  (Î» (x y)
+  (λ (x y)
     (* x y)))
 
 ((λ (x) (add1 x)) 1)
@@ -28,7 +28,6 @@
 
 
 ; optional arguments
-
 ((λ (x [y 2]) (square (+ x y))) 3)
 (define (f4 x [y 3])
   (square (+ x y)))
@@ -37,7 +36,6 @@
 
 
 ; keyword arguments
-
 ((λ (x #:y y #:z [z 3]) (* (+ x y) z)) 1 #:z 4 #:y 3)
 (define (f5 x #:y y #:z [z 3])
   (* (+ x y) z))
@@ -45,8 +43,7 @@
 
 
 
-; arity sensitive arguments
-
+; arity sennsitive arguments
 (define f6
   (case-lambda
     [(x) (square x)]
@@ -59,3 +56,19 @@
 ((λ (f x) (f (f x)))
  square 3)
 
+; local functions
+(define (count-instances x xs)
+  (let ([fn1 (λ (s)
+               (define (fn2 n ss)
+                 (if (empty? ss)
+                     n
+                     (fn2 (if (eq? x (first ss))
+                              (add1 n)
+                              n)
+                          (rest ss))))
+               (fn2 0 s))])
+  (map fn1 xs)))
+(count-instances 'a
+                 (list (list 'a 'b 'c)
+                       (list 'b 'a 'a)
+                       (list 'a 'a 'b)))
