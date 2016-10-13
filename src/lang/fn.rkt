@@ -6,7 +6,7 @@
   (+ x y))
 
 (define f2
-  (λ (x y)
+  (Î» (x y)
     (* x y)))
 
 ((λ (x) (add1 x)) 1)
