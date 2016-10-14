@@ -54,11 +54,24 @@
     [clock (get-clock)]))
 
 (define-values (get-clock put-clock!)
-  (let ([private-clock 0])
-    (values (λ () private-clock)
-            (λ (v) (set! private-clock v) private-clock))))
+  (let ([c 0])
+    (values (λ () c)
+            (λ (v) (set! c v) c))))
 
 (let ([n clock])
   (when (zero? clock)
     (begin (set! clock 10) (clock 0 1 2))))
+
+; macro-generating macros
+(define-syntax-rule (define-get/put-id id get put!)
+  (define-syntax id
+    (syntax-id-rules (set!)
+      [(set! id e) (put! e)]
+      [(id a (... ...)) (list (get) a (... ...))]
+      [id (get)])))
+
+(define-get/put-id clock1 get-clock put-clock!)
+(when (= 10 clock1)
+  (set! clock1 100)
+  (clock1 0 1 2))
       
