@@ -1,6 +1,9 @@
 #lang racket
 
+;; for other dialect, (require compatibility/defmacro)
+
 ;; pattern-based macro
+
 
 ; single pattern
 (define-syntax-rule (swap x y)
