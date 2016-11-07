@@ -1,6 +1,6 @@
 #lang racket
 
-; fn definition and call
+;; fn definition and call
 
 (define (f1 x y)
   (+ x y))
@@ -12,9 +12,12 @@
 ((λ (x) (add1 x)) 1)
 
 
-; rest arguments
+;; rest arguments
 
 ((λ x (cdr x)) 1 2 3)
+;; why ((λ (x) (cdr x)) 1 2 3)
+((λ (x y . z) (list x y z)) 1 2 3 4 5 6)
+
 
 (define (square x) (* x x))
 (define (sum-of-square x y z . args)
@@ -27,7 +30,7 @@
    (f3 1 2 3 4 5))
 
 
-; optional arguments
+;; optional arguments
 ((λ (x [y 2]) (square (+ x y))) 3)
 (define (f4 x [y 3])
   (square (+ x y)))
@@ -35,7 +38,7 @@
 
 
 
-; keyword arguments
+;; keyword arguments
 ((λ (x #:y y #:z [z 3]) (* (+ x y) z)) 1 #:z 4 #:y 3)
 (define (f5 x #:y y #:z [z 3])
   (* (+ x y) z))
