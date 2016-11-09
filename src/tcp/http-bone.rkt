@@ -19,7 +19,8 @@
   ; Discard the request header (up to blank line):
   (regexp-match #rx"(\r\n|^)\r\n" in)
   ; Send reply:
-  (display "HTTP/1.0 200 Okay\r\n" out)
-  (display "Server: k\r\nContent-Type: text/html\r\n\r\n" out)
+  (display "HTTP/1.1 200 OK\r\n" out)
+  (display "Server: Racket/0.1.0\r\n" out)
+  (display "Content-Type: text/html\r\n\r\n" out)
   (display "<html><body>Hello, world!</body></html>" out))
 
