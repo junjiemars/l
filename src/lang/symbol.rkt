@@ -17,3 +17,9 @@
 
 (gensym)
 (gensym "abc")
+
+;; special symbols
+(eq? null null)
+(eq? null '())
+(eq? null `())
+(or null #f #t)

@@ -9,3 +9,9 @@
 
 (define lst1 (vector->list v1))
 (rest lst1)
+(and (car lst1) (first lst1))
+
+(define vec1 (list->vector lst1))
+
+(map string-titlecase
+     (vector->list #("three" "blind" "mice")))
