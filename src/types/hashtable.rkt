@@ -8,6 +8,7 @@
 ;;(hash-ref x "coconut")
 (hash-set! x "coconut" "not there")
 (hash-count x)
+(hash-has-key? x "coconut")
 
 ;; immutable hashtable
 
