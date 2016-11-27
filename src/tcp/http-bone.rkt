@@ -17,7 +17,9 @@
 
 (define (handle in out)
   ; Discard the request header (up to blank line):
+  (displayln (read in))
   (regexp-match #rx"(\r\n|^)\r\n" in)
+  
   ; Send reply:
   (display "HTTP/1.1 200 OK\r\n" out)
   (display "Server: Racket/0.1.0\r\n" out)

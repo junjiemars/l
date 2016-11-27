@@ -2,13 +2,13 @@
 
 ;; default ports
 
-(display "Hi")
-(display "hi, default output port" (current-output-port))
+(display "Hi\n")
+(displayln "hi, default output port" (current-output-port))
 
 
 ;; stderr
 (define (swing-hammer)
-  (display "Ouch!" (current-error-port)))
+  (display "Ouch!\n" (current-error-port)))
 (swing-hammer)
 
 (let ([s (open-output-string)])
