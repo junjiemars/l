@@ -32,6 +32,12 @@
     ([exn:fail?
       (λ (x) 'oops)])
   ;; simulate C-c
-  (break-thread (current-thread))
+  ;; (break-thread (current-thread))
   (car 18))
+
+(with-handlers
+    ([exn:fail:contract?
+      (λ (x) 'catch-you)])
+  (car 19))
+
 
