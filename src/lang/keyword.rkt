@@ -4,3 +4,5 @@
            (string->keyword "b"))
 
 (keyword? (string->keyword "a"))
+
+(keyword? '#:a)
