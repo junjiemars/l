@@ -1,6 +1,6 @@
 #lang racket
 
-(define tmpfile "x.txt")
+(define tmpfile "/tmp/x.txt")
 
 ;; write to a file
 (define out (open-output-file #:exists 'truncate tmpfile))
