@@ -23,3 +23,6 @@
 (eq? null '())
 (eq? null `())
 (or null #f #t)
+
+;; quoted identifier symbol
+(define |white rabbit| 123)
