@@ -7,3 +7,5 @@
 *.swp
 bin
 *.txt
+*.core
+*.fasl
