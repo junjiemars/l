@@ -1,5 +1,5 @@
-# racket_lessons
-racket programming lessons and use cases
+# Lisp Lessons
+Lisp programming lessons and use cases
 
 * [REPL](#repl)
   * [DrRacket REPL](#drracket-repl)

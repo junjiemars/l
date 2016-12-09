@@ -9,3 +9,4 @@ bin
 *.txt
 *.core
 *.fasl
+**/*.db

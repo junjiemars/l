@@ -11,3 +11,5 @@
 (defun sqr (n)
   (* n n))
 
+(defun cube (n)
+  (* n (sqr n)))
