@@ -62,3 +62,26 @@
        (if rating (= (getf cd :rating) rating) t)
        (if ripped-p (eq (getf cd :rippied) ripped) t))))
 
+(defun update (fn &key title artist rating (ripped nil ripped-p))
+  (setf *db*
+        (mapcar
+         #'(lambda (row)
+             (when (funcall fn row)
+               (if title (setf (getf row :title) title))
+               (if artist (setf (getf row :artist) artist))
+               (if rating (setf (getf row :rating) rating))
+               (if ripped-p (setf (getf row :ripped) ripped)))
+             row)
+         *db*)))
+
+(defun delete-rows (fn)
+  (setf *db* (remove-if fn *db*)))
+
+(defun group (source n)
+  (break)
+  (labels ((rec (source acc)
+             (let ((rest (nthcdr n source)))
+               (if (consp rest)
+                   (rec rest (cons (subseq source 0 n) acc))
+                   (nreverse (cons source acc))))))
+    (if source (rec source nil)) nil))
