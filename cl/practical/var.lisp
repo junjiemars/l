@@ -45,3 +45,11 @@
   (list x y))
 (macroexpand '(setf *xyz* (* *xyz* *xyz*)))
 
+(let ((x #x11223344)
+      (y #x44332211))
+  (defvar x1 123)
+  (defvar x1 (1+ x1))
+  (defparameter y1 123)
+  (defparameter y2 (1+ y))
+  (list x1 y2))
+

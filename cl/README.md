@@ -10,3 +10,5 @@
 **q** of ```setq``` means ```(set (quote x) 123)```, **q** is for ```quote```
 
 **f** of ```setf``` means field/form/function ?
+
+```defparameter``` always assigns a value, but ```defvar``` does it only once.
