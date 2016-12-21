@@ -4,7 +4,7 @@
     (list x y)))
 
 (let ((y 123))
-  (scope-test 3))
+  (scope-test 3) y)
 
 (let ((x 1))
   (format t ">L1 ~a~%" x)
@@ -29,7 +29,7 @@
 
 (funcall (first *f2*))
 (funcall (first *f2*))
-(funcall (third *f2*))w
+(funcall (third *f2*))
 (funcall (second *f2*))
 (funcall (third *f2*))
 
@@ -37,3 +37,11 @@
 
 (defvar *xyz* #b0110)
 (defconstant +xyz+ #b0001)
+
+(let ((x (list 1 2 3))
+      (y 123))
+  (setf (car x) (cadr x))
+  (setf y (* y y))
+  (list x y))
+(macroexpand '(setf *xyz* (* *xyz* *xyz*)))
+
