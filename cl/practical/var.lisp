@@ -43,13 +43,18 @@
   (setf (car x) (cadr x))
   (setf y (* y y))
   (list x y))
-(macroexpand '(setf *xyz* (* *xyz* *xyz*)))
+;; (macroexpand '(setf *xyz* (* *xyz* *xyz*)))
 
-(let ((x #x11223344)
-      (y #x44332211))
-  (defvar x1 123)
-  (defvar x1 (1+ x1))
-  (defparameter y1 123)
-  (defparameter y2 (1+ y))
-  (list x1 y2))
+;; assigns only once
+(defvar *xyz* #xff)
+(defparameter *new-value* 234)
+
+;; allways assigns a new value
+(defparameter *new-value* #xff)
+
+;; will failed: (cadr x) is not a symbol
+#|
+(let ((x '(a b c)))
+  (setq (cadr x) (car x)))
+|#
 
