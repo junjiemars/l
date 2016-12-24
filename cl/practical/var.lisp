@@ -54,7 +54,19 @@
 
 ;; will failed: (cadr x) is not a symbol
 #|
-(let ((x '(a b c)))
+ (let ((x '(a b c)))
   (setq (cadr x) (car x)))
 |#
+
+;; *symbol-symbol-value* -> T? -> 123
+(defparameter *symbol-symbol-value* (gentemp))
+(set *symbol-symbol-value* 123)
+(eq 123 (symbol-value (symbol-value '*symbol-symbol-value*)))
+
+(defvar *will-in* (make-symbol "abc"))
+(eq '|abc| *will-in*)
+(find-symbol (string-upcase "*will-in*"))
+(import *will-in*)
+(find-symbol (string-upcase "*will-in*"))
+(eq '|abc| *will-in*)
 

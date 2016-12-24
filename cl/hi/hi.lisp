@@ -1,12 +1,10 @@
 
 (defpackage :hi
-  (:use :common-lisp :asdf)
-  (:export #:main #:sqr))
+  (:use :common-lisp)
+  (:export #:sqr #:cube)
+  (:import-from :utils))
 
 (in-package :hi)
-
-(defun main ()
-  (print "abc"))
 
 (defun sqr (n)
   (* n n))
