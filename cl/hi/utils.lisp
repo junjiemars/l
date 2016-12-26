@@ -1,13 +1,6 @@
 
 ;; want a clojure like: take, range
 ;; how to do that?
-(defpackage :utils
-  (:use :common-lisp)
-  (:export #:take
-           #:range
-           #:longer
-           #:package-internal-symbols))
-
 
 (defun take (n seq)
   (labels ((iter (n seq acc)
