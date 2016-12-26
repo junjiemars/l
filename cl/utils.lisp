@@ -5,7 +5,8 @@
   (:use :common-lisp)
   (:export #:take
            #:range
-           #:longer))
+           #:longer
+           #:package-internal-symbols))
 
 
 (defun take (n seq)
