@@ -1,4 +1,7 @@
 
+
+(in-package :utils)
+
 ;; want a clojure like: take, range
 ;; how to do that?
 
@@ -22,12 +25,3 @@
         (iter x y)
         (> (length x) (length y)))))
 
-(defun package-internal-symbols (package)
-  (let ((seq nil))
-    (do-symbols (s package)
-      (when (eq (second
-                 (multiple-value-list
-                  (find-symbol (symbol-name s) package)))
-                :internal)
-        (push s seq)))
-    seq))
