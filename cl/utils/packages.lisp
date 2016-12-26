@@ -2,4 +2,5 @@
 (defpackage :utils
   (:use :common-lisp)
   (:export #:take
-           #:range))
+           #:range
+           #:package-internal-symbols))

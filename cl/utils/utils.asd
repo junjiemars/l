@@ -3,7 +3,7 @@
 (asdf:defsystem :utils
   :description "another tiny utils"
   :version "1.0"
-  :author "JunjieMars@gmail.com"
+  :author "南山竹"
   :depends-on nil
   :components ((:file "packages")
                (:file "seq" :depends-on ("packages"))
