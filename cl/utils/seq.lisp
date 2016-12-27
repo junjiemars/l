@@ -12,9 +12,13 @@
                  (iter (1- n) (cdr seq) (cons (car seq) acc)))))
     (nreverse (iter n seq nil))))
 
-(defun range (max &key (min 0) (step 1))
+
+(defun range (max &key (min 0) (step 1) (randomized nil))
   (loop for n from min below max by step
-       collect n))
+           collect (if randomized
+                       (+ min (random max))
+                       n)))
+
 
 (defun longer (x y)
   (labels ((iter (x y)

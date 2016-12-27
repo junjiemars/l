@@ -1,5 +1,15 @@
 # Common Lisp
 
+## Environments
+
+### View Source Code
+Set sbcl's source path via
+```common-lisp
+(sb-ext:set-sbcl-source-location "/opt/open/sbcl/")
+```
+Use ```M-.``` jump to ```*slime-xref*``` list.
+
+
 ## Variables & Expressions
 
 ### Assignment
@@ -12,3 +22,5 @@
 **f** of ```setf``` means field/form/function ?
 
 ```defparameter``` always assigns a value, but ```defvar``` does it only once.
+
+
