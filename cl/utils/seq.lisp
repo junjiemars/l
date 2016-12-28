@@ -29,3 +29,9 @@
         (iter x y)
         (> (length x) (length y)))))
 
+(defun keys (h)
+  (let ((acc nil))
+    (maphash #'(lambda (k v) (cons k acc)) h)))
+     
+
+
