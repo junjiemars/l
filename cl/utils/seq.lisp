@@ -30,8 +30,8 @@
         (> (length x) (length y)))))
 
 (defun keys (h)
-  (let ((acc nil))
-    (maphash #'(lambda (k v) (cons k acc)) h)))
+  (loop for k being the hash-keys of h
+       collect k))
      
 
 
