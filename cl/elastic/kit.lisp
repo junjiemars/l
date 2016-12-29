@@ -8,10 +8,11 @@
 ;; (import 'flexi-external-formt :flexi-streams)
 
 (defun lookup (url &key ((:package p) nil has-p) ((:parameters a) nil has-a)
+                     ((:method m) :get)
                      ((:encode e) 'j:encode-json-alist-to-string)
                      ((:decode d) 'j:decode-json))
   (let ((s (w:http-request url
-                           :method :get
+                           :method m
                            :want-stream t
                            :content (when has-p (funcall e p))
                            :parameters (when has-a a))))
