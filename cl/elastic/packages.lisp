@@ -4,8 +4,9 @@
   (:use :common-lisp
         :drakma
         :flexi-streams
+        :cl-json
         :cl-html-parse
-        :cl-ppcre
-        :yason)
+        :cl-ppcre)
+        
   ;; (:import-from :drakma)
   (:export #:lookup))
