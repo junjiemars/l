@@ -7,14 +7,14 @@
 ;; (import 'http-request :drakma)
 ;; (import 'flexi-external-formt :flexi-streams)
 
-(defun lookup (url &key ((:package p) nil has-p) ((:parameters a) nil has-a)
+(defun lookup (url &key ((:content c) nil has-c) ((:parameters a) nil has-a)
                      ((:method m) :get)
                      ((:encode e) 'j:encode-json-alist-to-string)
                      ((:decode d) 'j:decode-json))
   (let ((s (w:http-request url
                            :method m
                            :want-stream t
-                           :content (when has-p (funcall e p))
+                           :content (when has-c (funcall e c))
                            :parameters (when has-a a))))
     (setf (fs:flexi-stream-external-format s) :utf-8)
     (funcall d s)))
