@@ -25,10 +25,7 @@
 (defun named-args-fn (x &key (y 0) (z 10 z-suplied-p) (a (+ x y)))
   (list x y z z-suplied-p a))
 
-(defun named-args-fn (x &key
+(defun named-args-fn1 (x &key
                           ((:apple y))
                           ((:berry z) 0 z-suplied-p))
   (list x y z z-suplied-p))
-
-
-

@@ -4,7 +4,7 @@
   :description "another tiny utils"
   :version "1.0"
   :author "南山竹"
-  :depends-on nil
+  :depends-on nil ;; (:common-lisp)
   :components ((:file "packages")
                (:file "seq" :depends-on ("packages"))
                (:file "sym" :depends-on ("packages"))))
