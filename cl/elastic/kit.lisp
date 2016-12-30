@@ -10,7 +10,7 @@
                         ((:method m) :get)
                         ((:parameters a) nil has-a)
                         ((:content c) nil has-c) 
-                        ((:encode e) #'j:encode-json-to-string)
+                        ((:encode e) #'identity)
                         ((:decode d) #'j:decode-json))
   `(let ((s (w:http-request ,url
                             :method ,m
