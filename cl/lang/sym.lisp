@@ -36,9 +36,30 @@
 (defun inaccessible-fn () 49)
 (defparameter *inaccessible-fn* 'inaccessible-fn)
 (symbol-function 'inaccessible-fn)
+
 #|
-(unintern 'inaccessible-fn) => unbound 
-(funcall *inaccessible-fn*) => 49
+(unintern 'inaccessible-fn)
+;; (funcall *inaccessible-fn*) => unbound
 ;; restore inaccessible-fn -> fn object
-(set 'inaccessible-fn *inaccesible-fn*)
+(setf (symbol-function 'inaccessible-fn)
+      (symbol-function *inaccessible-fn*))
+;; or 
+(import *inaccessible-fn*)
 |#
+
+;; shadowing: avoid name conflicts
+
+(defpackage :bio
+  (:use :cl)
+  (:export :cat :dog :tree))
+
+(in-package :bio)
+(defclass tree () ())
+(defpackage :grapha
+  (:use :cl)
+  (:export :vertex :edge :tree))
+;; will shadow 'grapha:tree if 'tree existing
+;; (shadow 'tree)
+;; will import 'grpha:tree and shadown the existing 'bio:tree
+(shadowing-import 'grapha:tree)
+(use-package :grapha)
