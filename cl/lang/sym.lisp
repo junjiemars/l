@@ -80,4 +80,7 @@
 (SETF (READTABLE-CASE *READTABLE*) :UPCASE)
 |#
 
-
+;; is same thing? or interchangeable?
+(length
+ (remove-duplicates
+  (mapcar #'find-package '(CL :CL #:CL "CL"))))
