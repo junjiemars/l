@@ -20,9 +20,25 @@
      (setf ,x ,y ,y tmp)
      (list 'x ,x 'y ,y)))
 
-;; use (gensym) to avoid name clashes
+;; use (gensym) to avoid name capture
 (defmacro swap (x y)
   (let ((tmp (gensym)))
     `(let ((,tmp ,x))
        (setf ,x ,y ,y ,tmp)
        (list 'x ,x 'y ,y))))
+
+;; generate fresh symbols
+(list *gensym-counter* (gensym) (gensym) (gensym "fo | o"))
+(list (make-symbol "a1") (make-symbol "a b c"))
+
+
+;; make symbol inaccessible
+(defun inaccessible-fn () 49)
+(defparameter *inaccessible-fn* 'inaccessible-fn)
+(symbol-function 'inaccessible-fn)
+#|
+(unintern 'inaccessible-fn) => unbound 
+(funcall *inaccessible-fn*) => 49
+;; restore inaccessible-fn -> fn object
+(set 'inaccessible-fn *inaccesible-fn*)
+|#
