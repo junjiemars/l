@@ -63,3 +63,21 @@
 ;; will import 'grpha:tree and shadown the existing 'bio:tree
 (shadowing-import 'grapha:tree)
 (use-package :grapha)
+
+;; collect all symbols in a package
+(loop for s being each external-symbol of *package*
+     collect s)
+
+;; symbol case (in)sensitive? default is UPCASE
+(eq :upcase (readtable-case *readtable*))
+(eq 'foo 'Foo)
+(eq 'foo 'F\oO)
+(eq (|SYMBOL-NAME| 'foo) (SYMBOL-NAME 'foo))
+#|
+(SETF (READTABLE-CASE *READTABLE*) :PRESERVE)
+(EQ 'FOO 'FOO)
+(EQ 'foo 'FOO)
+(SETF (READTABLE-CASE *READTABLE*) :UPCASE)
+|#
+
+
