@@ -21,10 +21,6 @@
      (funcall ,d s)))
 
 
-(defmacro make-url-base (&key (host "172.17.0.2") (port 9200))
-  `(with-output-to-string (s)
-     (format s "http://~a:~a" ,host ,port)))
-
 
 (defmacro make-url (base &key (index nil) (type nil) (id nil))
   `(with-output-to-string (s)

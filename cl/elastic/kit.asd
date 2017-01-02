@@ -11,4 +11,7 @@
                :cl-ppcre)
                
   :components ((:file "packages")
-               (:file "kit" :depends-on ("packages"))))
+               (:file "kit" :depends-on ("packages"
+                                         "url"))
+               (:module "url"
+                        :components ((:file "url")))))
