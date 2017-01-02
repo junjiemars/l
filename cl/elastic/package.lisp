@@ -1,7 +1,7 @@
 
-(defpackage :rocks.trunk.elastic.kit
+(defpackage #:rocks.trunk.elastic.kit
   (:nicknames "ES-KIT")
-  (:use :common-lisp)
+  (:use #:cl)
   (:local-nicknames (:w :drakma)
                     (:fs :flexi-streams)
                     (:h :cl-html-parse)
