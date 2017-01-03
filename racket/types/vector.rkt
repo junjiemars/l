@@ -15,3 +15,7 @@
 
 (map string-titlecase
      (vector->list #("three" "blind" "mice")))
+
+(define v2 (make-vector 3))
+(vector-set! v2 0 'first)
+(vector-set! v2 1 'second)
