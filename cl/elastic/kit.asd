@@ -12,8 +12,12 @@
 
   :serial t
                
-  :components ((:file "packages")
-               (:file "kit" :depends-on ("packages"
-                                         "url"))
+  :components ((:file "package")
                (:module "url"
-                        :components ((:file "url")))))
+                        :components ((:file "url")))
+               (:file "kit" :depends-on ("package"
+                                         "url"))
+               (:file "search" :depends-on ("kit"))))
+
+               
+                        
