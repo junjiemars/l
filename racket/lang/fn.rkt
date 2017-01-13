@@ -14,9 +14,9 @@
 
 ;; rest arguments
 
+;; why not ((λ (x) ...)
 ((λ x (cdr x)) 1 2 3)
-;; why ((λ (x) (cdr x)) 1 2 3)
-((λ (x y . z) (list x y z)) 1 2 3 4 5 6)
+((λ (x y . z) (list (list x) (list y) (list z))) 1 2 3 4 5 6)
 
 
 (define (square x) (* x x))
@@ -31,9 +31,9 @@
 
 
 ;; optional arguments
-((λ (x [y 2]) (square (+ x y))) 3)
+((λ (x [y 2]) (list x y)) 3)
 (define (f4 x [y 3])
-  (square (+ x y)))
+  (list x y))
 (f4 2)
 
 
