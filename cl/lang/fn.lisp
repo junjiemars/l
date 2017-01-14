@@ -13,6 +13,7 @@
 (defun sum4 (x y &optional (z 0) (a 10))
   (list x y z a))
 
+;; height ref width, so default is square
 (defun rectangle (width &optional (height width))
   (list :width width :height height))
 
@@ -25,6 +26,7 @@
 (defun named-args-fn (x &key (y 0) (z 10 z-suplied-p) (a (+ x y)))
   (list x y z z-suplied-p a))
 
+;; :apple alias y
 (defun named-args-fn1 (x &key
                           ((:apple y))
                           ((:berry z) 0 z-suplied-p))

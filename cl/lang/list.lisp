@@ -78,4 +78,9 @@
   x)
 
 
-        
+;; shared structure
+(let ((tail (list :c :d :e)))
+  (let ((*a* (append '(:a) tail))
+        (*b* (append '(:b) tail)))
+    (list :tail (tailp (cdr *b*) *a*)
+          :diff (ldiff *b* *a*))))
