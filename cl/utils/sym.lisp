@@ -1,5 +1,5 @@
 
-(in-package :utils)
+(in-package #:rocks.trunk.utils)
 
 (defun package-internal-symbols (package)
   (let ((seq nil))

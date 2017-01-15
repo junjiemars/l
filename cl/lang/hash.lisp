@@ -28,11 +28,18 @@
             (unless more (return nil))
             (funcall fn key value)))))
 
-(loop for hero being the hash-keys of x
+(loop for hero being the hash-keys of h
    collect hero)
 
-(loop for hero being the hash-values of x
+(loop for hero being the hash-values of h
    collect hero)
 
 ;;(remhash 'superman h)
 ;;(clrhash h)
+
+(setf (gethash 'aaa h) "aaa")
+(setf (gethash 'bbb h) "aaa")
+(loop for hero being the hash-keys of h
+     using (hash-value city)
+     when (string= "aaa" city)
+     do (remhash hero h))

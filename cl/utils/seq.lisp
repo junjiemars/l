@@ -1,6 +1,6 @@
 
 
-(in-package :utils)
+(in-package #:rocks.trunk.utils)
 
 ;; want a clojure like: take, range
 ;; how to do that?
@@ -29,9 +29,20 @@
         (iter x y)
         (> (length x) (length y)))))
 
-(defun keys (h)
-  (loop for k being the hash-keys of h
-       collect k))
-     
+(defmacro keys (h)
+  "Return the keys of H"
+  `(loop for k being the hash-keys of ,h
+      collect k))
+
+
+(defmacro dohash ((k v h) &body body)
+  "Iterate hash do the body"
+  (let ((next (gensym "NEXT"))
+        (more (gensym "MORE")))
+    `(with-hash-table-iterator (,next ,h)
+       (loop (multiple-value-bind (,more ,k ,v)
+                 (,next)
+               (unless ,more (return nil))
+               ,@body)))))
 
 
