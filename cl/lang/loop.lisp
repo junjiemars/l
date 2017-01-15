@@ -52,9 +52,67 @@
      and y = 1 then (+ x y)
      collect y)
 
+;; local variables
+(loop 
+   with x = 100
+   with y = -50
+   for i from 1 to 10
+   collect (+ x y i))
+
+;; destructuring variables
+(loop for (a b) in '((1 2) (3 4) (5 6))
+   do (format t "a:~a; b:~a~%" a b))
+(loop for (a nil) in '((1 2) (3 4) (5 6))
+     collect a)
+(loop for cons on '((1 2) (3 4) (5 6))
+     do (format t "~a" (car cons))
+     when (cdr cons) do (format t ", "))
+(loop for (item . rest) on '((1 2) (3 4) (5 6))
+   do (format t "~a" item)
+   when rest do (format t ", "))
+
+;; value accumulation
+(let ((r (loop repeat 10 collect (random 100))))
+  (format t "~a~%" r)
+  (loop for i in r
+       counting (evenp i) into evens
+       counting (oddp i) into odds
+       summing i into total
+       maximizing i into max
+       minimizing i into min
+       finally (return (list total max min evens odds))))
+
+;; uncoditional executation
+(block outer
+  (loop for i from 0 return 100)
+  (print "this will be print"))
+(block outer
+  (loop for i from 0 do (return-from outer 100))
+  (print "this will not be print"))
+
+;; conditional execution
+;; conditional test-form loop-clause
+(loop for i to 10
+     when (evenp i) sum i)
+(loop for i to 10
+     unless (oddp i) sum i)
+(loop for i to 100
+     if (evenp i) sum i into even-total
+     else sum i into odd-total
+     finally (return (list (+ even-total odd-total) even-total odd-total)))
 
 (loop for i below 10
    and a = 0 then b
    and b = 1 then (+ b a)
    finally (return a))
+
+;; termination test
+(loop for i to 10 by 2 always (evenp i))
+(loop for i to 10 by 2 never (oddp i))
+(loop for c across "abc123" thereis (digit-char-p c))
+
+
+;; loop just macro
+(pprint (macroexpand '(loop for i to 10 collect i)))
+
 
