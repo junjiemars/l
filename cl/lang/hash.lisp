@@ -43,3 +43,20 @@
      using (hash-value city)
      when (string= "aaa" city)
      do (remhash hero h))
+
+;; hash-test
+(defparameter h1
+  (make-hash-table :test 'char=
+                   :hash-function (lambda (c)
+                                    (char-code (char-downcase c)))))
+(setf (gethash #\S h1) "aaa")
+(gethash #\s h1)
+
+;; hash-table growth
+(defparameter h2 (make-hash-table))
+(time (loop for n below 1000000 do (setf (gethash n h2) n)))
+(values (hash-table-size h2) (hash-table-count h2))
+(clrhash h2)
+(time (loop for n below 1000000 do (setf (gethash n h2) n)))
+(values (hash-table-size h2) (hash-table-count h2))
+
