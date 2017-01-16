@@ -11,17 +11,18 @@
 
 (def-directory-route "/" "./asserts")
 
- (as:with-event-loop ()
-   (let* ((listener (make-instance 'listener
-                                   :bind nil
-                                   :port 8080))
-          (server (start-server listener)))
-     (as:signal-handler
-      2
-      (lambda (sig)
-        (declare (ignore sig))
-        (as:free-signal-handler 2)
-        (as:close-tcp-server server)))))
+(defun run ()
+  (as:with-event-loop ()
+    (let* ((listener (make-instance 'listener
+                                    :bind nil
+                                    :port 8080))
+           (server (start-server listener)))
+      (as:signal-handler
+       2
+       (lambda (sig)
+         (declare (ignore sig))
+         (as:free-signal-handler 2)
+         (as:close-tcp-server server))))))
                          
      
                        

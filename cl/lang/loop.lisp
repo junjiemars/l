@@ -115,4 +115,8 @@
 ;; loop just macro
 (pprint (macroexpand '(loop for i to 10 collect i)))
 
-
+;; circular list
+(loop for i in '#1=(a b c . #1#)
+     repeat 9 collect i)
+(defparameter *c* '#1=(a b c . #1#))
+(setf *print-circle* t)
