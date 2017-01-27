@@ -16,3 +16,8 @@
 
 (defvar x1 (lambda (x) (* 2 x)))
 (funcall x1 3)
+
+
+;; #'sqr => (function sqr)
+(flet ((sqr (n) (* 2 n n)))
+  (list (funcall 'sqr 3) (funcall #'sqr 3) (function sqr)))
