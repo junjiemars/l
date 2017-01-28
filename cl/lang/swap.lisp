@@ -33,3 +33,10 @@
   (shiftf (aref a1 0) (elt l1 2)
            i1 (second l1))
   (list a1 l1 i1))
+
+(let ((n 0)
+      (x (list 'a 'b 'c 'd 'e 'f 'g)))
+  (rotatef (nth (incf n) x)
+           (nth (incf n) x)
+           (nth (incf n) x))
+  x)
