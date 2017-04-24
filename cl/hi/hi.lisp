@@ -10,7 +10,9 @@
 (in-package :hi)
 
 (defun sqr (n)
+  (declaim (optimize (debug 3) (safety 0) (speed 0)))
   (* n n))
 
 (defun cube (n)
+  (declaim (optimize (debug 3) (safety 0) (speed 0)))
   (* n (sqr n)))

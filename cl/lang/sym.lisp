@@ -19,6 +19,10 @@
   `(let ((tmp ,x))
      (setf ,x ,y ,y tmp)
      (list 'x ,x 'y ,y)))
+;; does not swap expectly
+(let ((x 123)
+      (tmp 234))
+  (swap0 x tmp))
 
 ;; use (gensym) to avoid name capture
 (defmacro swap (x y)
