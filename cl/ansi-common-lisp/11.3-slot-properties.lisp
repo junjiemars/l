@@ -29,7 +29,11 @@
               :initarg :top-story)))
 
 
-(defparamter  daily-blab (make-instance 'tabloid)
-  unsolicited-mail (make-instance 'tabloid))
+(defparameter *daily-blab* (make-instance 'tabloid
+                                          :top-story 'adultery-of-senator))
+(defparameter *unsolicited-mail* (make-instance 'tabloid))
 
-(setf (tabloid-story daily-blab) 'adultery-of-senator)
+
+(eq (tabloid-story *unsolicited-mail*)
+    (tabloid-story *daily-blab*))
+
