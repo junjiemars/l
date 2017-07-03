@@ -1,0 +1,4 @@
+
+(intern "RANDOM-SYMBOL")
+
+
