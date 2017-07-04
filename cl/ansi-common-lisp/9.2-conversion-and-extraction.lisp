@@ -61,11 +61,20 @@
 (mapcar #'signum '(-2 -0.0 0.0 0 .5 3))
 
 
+;; `ratios' and `complex' numbers are conceptually two-part structures
+
 (numerator 1/3)
 (denominator 1/3)
 
+(numerator 1)
+(denominator 3)
+
 (realpart #c (1 2.0))
 (imagpart #c (1 2.0))
+
+(realpart 1)
+(imagpart 2.0)
+(imagpart 2)
 
 ;; (and (< 0 x) (< x n))
 (random 10)
