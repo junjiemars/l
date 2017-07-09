@@ -1,5 +1,11 @@
 
 
+;; There are no `forward declaration' in Common Lisp?
+;; simulate: forward declaration
+(defun finder (obj vec start end)
+  (declare (ignore obj vec start end)))
+
+
 (defun bin-search (obj vec)
   (let ((len (length vec)))
     (and (not (zerop len))
