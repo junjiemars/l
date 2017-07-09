@@ -27,19 +27,24 @@
           (eql (- n first) second))))
 
 
+;; `truncate' toward zero
+;; `floor' toward -infinite
+;; `ceiling' toward +infinite
 (defun our-truncate (n)
   (if (> n 0)
       (floor n)
       (ceiling n)))
 
 
-;; `round' and `fround' produce a quotient that has been rounded to the nearest
-;; mathematical integer; if the mathematical quotient is exactly halfway
+;; `round' and `fround' produce a quotient that has been
+;; rounded to the nearest mathematical integer;
+;; if the mathematical quotient is exactly halfway
 ;; between two integers, (that is, it has the form integer+1/2), then the
 ;; quotient has been rounded to the even (divisible by two) integer
 (mapcar #'round '(-2.5 -1.5 1.5 2.5))
 
 
+;; (mod x y) == (_ second) <= (floor x y)
 (mod 2 3)
 (let ((n 2) (d 3))
   (list (mod n d)
@@ -49,6 +54,7 @@
                y))))
 
 
+;; (rem x y) == (_ second) <= (truncate x y)
 (rem 2 3)
 (let ((n 2) (d 3))
   (list (rem n d)
