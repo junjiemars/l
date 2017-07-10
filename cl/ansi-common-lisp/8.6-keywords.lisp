@@ -8,4 +8,5 @@
   (case animal
     (:dog :woof)
     (:cat :meow)
-    (:pig :oink)))
+    (:pig :oink)
+    (t :unknown)))
