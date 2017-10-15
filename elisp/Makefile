@@ -6,7 +6,7 @@ test: 	hello_test \
 EMACS=emacs
 
 hello_test: hello.el
-	./hello.el
+	$(EMACS) --script ./hello.el
 
 compilation_test: compilation.el compilation-test.el
 	$(EMACS) -batch \
