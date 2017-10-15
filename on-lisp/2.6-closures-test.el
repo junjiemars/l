@@ -24,3 +24,13 @@
     (should (= 5 (funcall add2 3)))
     (funcall add2 10 t)
     (should (= 13 (funcall add2 3)))))
+
+(ert-deftest make-dbms ()
+  (let ((cities (make-dbms nil)))
+    (should (equal '((boston . us)) (funcall (cadr cities) 'boston 'us)))
+    (should (equal '((london . england) (boston . us))
+                   (funcall (cadr cities) 'london 'england)))
+    (should (equal 'us (funcall (car cities) 'boston)))
+    (should (equal 'london (funcall (car (cddr cities)) 'london)))
+    (should (equal nil (funcall (car cities) 'london)))))
+

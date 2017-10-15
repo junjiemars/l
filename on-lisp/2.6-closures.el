@@ -24,5 +24,5 @@
    #'(lambda (key val)
        (push (cons key val) db))
    #'(lambda (key)
-       (setf db (delete key db))
+       (setf db (assq-delete-all key db))
        key)))
