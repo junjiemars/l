@@ -13,5 +13,9 @@
 (defun make-adder (n)
   #'(lambda (x) (+ x n)))
 
+(defsubst 50th (lst)
+  (nth 49 lst))
 
+(defun 50th+ (lst)
+  (1+ (50th lst)))
 

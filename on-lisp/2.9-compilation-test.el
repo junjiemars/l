@@ -13,11 +13,14 @@
   (should (= 2 (funcall *bar* 1)))
   (should (compiled-function-p *bar*)))
 
-(ert-deftest maker-adder ()
+(ert-deftest make-adder ()
   (should-not (compiled-function-p #'make-adder))
   (byte-compile #'make-adder)
   (should (compiled-function-p #'make-adder))
   ;; when one function occurs within another function, and the containing
   ;; function is compiled, the inner function will also get compiled.
   (should (compiled-function-p (make-adder 2))))
+
+(ert-deftest 50th+ ()
+  (should (= 51 (50th+ (number-sequence 1 100)))))
 
