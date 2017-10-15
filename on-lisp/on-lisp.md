@@ -5,5 +5,5 @@
 ## How to Run
 
 ```sh
-make -C <on-lisp-dir> test
+make -C <on-lisp-dir> EMACS=25.3 test
 ```

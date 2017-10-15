@@ -1,6 +1,6 @@
 .PHONY: test
 
-EMACS=emacs-25.3
+EMACS=emacs
 
 test: 	2.6_test \
 		2.7_test \

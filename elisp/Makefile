@@ -3,7 +3,7 @@
 test: 	hello_test \
 		compilation_test
 
-EMACS=emacs-25.3
+EMACS=emacs
 
 hello_test: hello.el
 	./hello.el
