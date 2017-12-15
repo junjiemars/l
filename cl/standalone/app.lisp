@@ -6,4 +6,4 @@
 (in-package :app)
 
 (defun main ()
-  3)
+  (format t "Hello, ECL!~A" #\Newline))
