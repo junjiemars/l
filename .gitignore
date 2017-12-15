@@ -5,9 +5,11 @@
 *.bak
 */*/compiled
 *.swp
+*.o
 bin
 *.txt
 *.core
 *.fasl
 **/*.db
 **/*.exe
+**/cl/standalone/app
