@@ -16,3 +16,8 @@
 (defun cube (n)
   (declaim (optimize (debug 3) (safety 0) (speed 0)))
   (* n (sqr n)))
+
+(defun main ()
+  (princ "Hello, Comman Lisp")
+  (terpri)
+  (ext:quit 0))
