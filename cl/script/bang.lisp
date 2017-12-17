@@ -1,3 +1,3 @@
-#!/usr/bin/sbcl --script
+#!sbcl --script
 
 (write-line "Hello World!")
