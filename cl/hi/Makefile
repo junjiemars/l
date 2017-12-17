@@ -7,4 +7,7 @@ clean:
 	test ! -f hi || rm hi
 	test ! -f hi.fasb || rm hi.fasb
 
-.PHONY: clean
+test: hi
+	./$^
+
+.PHONY: clean test
