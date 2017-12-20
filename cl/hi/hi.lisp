@@ -20,5 +20,5 @@
 (defun main ()
   (princ "Hello, Comman Lisp")
   (terpri)
-  (princ si::*command-args*)
+  (princ (format nil "~A~%" si::*command-args*))
   (ext:quit 0))

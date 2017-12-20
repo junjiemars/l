@@ -1,7 +1,7 @@
 
 
-hi: ecl-make.lisp
-	ecl --load $^
+hi: ecl-make.lisp hi.lisp
+	ecl --load $<
 
 clean:
 	test ! -f hi || rm hi
