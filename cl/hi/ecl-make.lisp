@@ -1,4 +1,3 @@
-
 (require 'asdf)
 (require 'cmp)
 
@@ -50,7 +49,7 @@ Loading FASL file hi.fasb
 
 (princ "
 
-Building standalone executable 'hi-mono' ('hi-mono.exe' in Windows)
+Building standalone executable 'hi' ('hi.exe' in Windows)
 
 ")
 (asdf:make-build :hi
