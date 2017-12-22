@@ -1,12 +1,4 @@
 
-
-#|;; migrate to packages.lisp
-(defpackage :hi
-  (:use :common-lisp)
-  (:export #:sqr #:cube)
-  (:import-from :utils))
-|#
-
 (in-package :hi)
 
 (defun sqr (n)
@@ -17,8 +9,15 @@
   (declaim (optimize (debug 3) (safety 0) (speed 0)))
   (* n (sqr n)))
 
+(defun quit (&optional code)
+  ;; This group from "clocc-port/ext.lisp"
+  #+sbcl (sb-ext:exit :code code)
+  #+abcl (cl-user::quit)
+  #+ecl (si:quit)
+  (error 'not-implemented :proc (list 'quit code))) 
+
 (defun main ()
   (princ "Hello, Comman Lisp")
   (terpri)
-  (princ (format nil "~A~%" si::*command-args*))
-  (ext:quit 0))
+  (princ (format nil "~A~%" "aaa"))
+  (quit))
