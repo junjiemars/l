@@ -16,10 +16,10 @@ hi_ecl: ecl-make.lisp $(hi_dep)
 
 clean:
 	test ! -f $(hi_bin) || rm $(hi_bin)
-	test ! -f hi.fasb || rm hi.fasb
-	test ! -f ecl.lib || rm ecl.lib
-	test ! -f proghi.exe.exp || rm proghi.exe.exp
-	test ! -f proghi.exe.lib || rm proghi.exe.lib
+	@test ! -f hi.fasb || rm hi.fasb
+	@test ! -f ecl.lib || rm ecl.lib
+	@test ! -f proghi.exe.exp || rm proghi.exe.exp
+	@test ! -f proghi.exe.lib || rm proghi.exe.lib
 
 # test: 
 
