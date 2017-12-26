@@ -4,15 +4,15 @@ ifeq ($(OS), Windows_NT)
 hi_bin := hi.exe
 endif
 
+cli ?= sbcl
+
 hi_dep := hi.asd \
           package.lisp \
           hi.lisp
 
-hi_sbcl: sbcl-make.lisp $(hi_dep)
-	sbcl --load $<
-
-hi_ecl: ecl-make.lisp $(hi_dep)
-	ecl --load $<
+hi_bin: $(cli)-make.lisp $(hi_dep)
+	$(cli) --load $<
+	test -f hi && mv hi $(hi_bin) 
 
 clean:
 	test ! -f $(hi_bin) || rm $(hi_bin)
@@ -23,6 +23,5 @@ clean:
 
 # test: 
 
-default: hi_sbcl
 
 .PHONY: default clean build
