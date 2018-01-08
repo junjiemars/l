@@ -8,6 +8,10 @@
 
 (require :hi)
 
-(sb-ext:save-lisp-and-die "hi" :toplevel #'hi:main :executable t)
+(sb-ext:save-lisp-and-die
+ (if (string= "Windows" (software-type))
+     "hi.exe"
+     "hi")
+ :toplevel #'hi:main :executable t)
 
 (sb-ext:exit 0)

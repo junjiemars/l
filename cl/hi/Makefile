@@ -12,7 +12,6 @@ hi_dep := hi.asd \
 
 hi_bin: $(cli)-make.lisp $(hi_dep)
 	$(cli) --load $<
-	test -f hi && mv hi $(hi_bin) 
 
 clean:
 	test ! -f $(hi_bin) || rm $(hi_bin)
@@ -21,7 +20,9 @@ clean:
 	@test ! -f proghi.exe.exp || rm proghi.exe.exp
 	@test ! -f proghi.exe.lib || rm proghi.exe.lib
 
-# test: 
+test: hi_bin
+	$(CURDIR)/$(hi_bin)
 
+default: hi_bin
 
-.PHONY: default clean build
+.PHONY: default clean test

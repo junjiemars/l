@@ -13,3 +13,4 @@ bin
 **/*.db
 **/*.exe
 **/cl/standalone/app
+**/*.fasb
