@@ -12,6 +12,8 @@
  (if (string= "Windows" (software-type))
      "hi.exe"
      "hi")
- :toplevel #'hi:main :executable t)
+ :toplevel #'hi:main
+ :compression t
+ :executable t)
 
 (sb-ext:exit 0)
