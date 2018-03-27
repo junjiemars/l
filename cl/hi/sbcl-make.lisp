@@ -9,7 +9,7 @@
 (require :hi)
 
 (sb-ext:save-lisp-and-die
- (if (string= "Windows" (software-type))
+ (if (string= "Win32" (software-type))
      "hi.exe"
      "hi")
  :toplevel #'hi:main
