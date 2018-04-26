@@ -1,8 +1,9 @@
 
 (defpackage :hi
-  (:use #:common-lisp)
-  (:export #:sqr)
-  (:export #:main))
+  (:use #:common-lisp
+				#:split-sequence)
+  (:export #:sqr
+					 #:main))
 
 
 

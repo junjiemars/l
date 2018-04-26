@@ -5,7 +5,7 @@
   :description "a hello world common lisp project"
   :version "1.0"
   :author "南山竹"
-  :depends-on nil
+  :depends-on ("split-sequence")
   :components ((:file "package")
                (:file "hi" :depends-on ("package"))))
                
