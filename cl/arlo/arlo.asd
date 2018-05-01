@@ -1,14 +1,20 @@
+;;; -*- Mode: Lisp; Syntax: Common-Lisp -*-
+;;;;
 ;;;; arlo.asd
 
-(sb-posix:putenv "DYLD_LIBRARY_PATH=/opt/local/lib")
+;; (sb-posix:putenv "DYLD_LIBRARY_PATH=/opt/local/lib")
 
-(asdf:defsystem #:rocks.trunk.web.arlo
+(defpackage #:arlo
+  (:use #:cl)
+  (:export :hello-world))
+
+
+(asdf:defsystem #:arlo
   :description "Describe arlo here"
   :author "南山竹"
   :license "Specify license here"
-  :depends-on (#:wookie)
+  :depends-on (#:cl-ppcre)
   :serial t
-  :components ((:file "package")
-               (:file "arlo")))
+  :components ((:file "arlo")))
 
 

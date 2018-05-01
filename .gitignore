@@ -14,3 +14,7 @@ bin
 **/*.exe
 **/cl/standalone/app
 **/*.fasb
+**/arlo/arlo.exe
+**/arlo/arlo
+**/hi/hi.exe
+**/hi/hi

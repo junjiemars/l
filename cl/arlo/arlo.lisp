@@ -1,29 +1,16 @@
+;;; -*- Mode: Lisp; Syntax: Common-Lisp -*-
 ;;;; arlo.lisp
 
-(in-package #:rocks.trunk.web.arlo)
+(in-package #:arlo)
 
 ;;; "arlo" goes here. Hacks and glory await!
 
-(load-plugins)
+(defun hello ()
+	(format t "Hello~%"))
 
-(defroute (:get "/") (req res)
-  (send-response res :body "Welcome to arlo!"))
 
-(def-directory-route "/" "./asserts")
+(defun hello-world (&optional (stream t))
+	(format stream "Hello World!~%"))
 
-(defun run ()
-  (as:with-event-loop ()
-    (let* ((listener (make-instance 'listener
-                                    :bind nil
-                                    :port 8080))
-           (server (start-server listener)))
-      (as:signal-handler
-       2
-       (lambda (sig)
-         (declare (ignore sig))
-         (as:free-signal-handler 2)
-         (as:close-tcp-server server))))))
-                         
-     
-                       
-         
+
+
