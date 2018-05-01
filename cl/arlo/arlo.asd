@@ -6,7 +6,8 @@
 
 (defpackage #:arlo
   (:use #:cl)
-  (:export :hello-world))
+  (:export :hello-world
+					 :assert*))
 
 
 (asdf:defsystem #:arlo
