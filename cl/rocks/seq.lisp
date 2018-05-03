@@ -1,15 +1,15 @@
 
 
-(in-package #:rocks.trunk.utils)
+(in-package #:rocks/seq)
 
 ;; want a clojure like: take, range
 ;; how to do that?
 
 (defun take (n seq)
   (labels ((iter (n seq acc)
-             (if (or (<= n 0) (null seq))
-                 acc
-                 (iter (1- n) (cdr seq) (cons (car seq) acc)))))
+								 (if (or (<= n 0) (null seq))
+										 acc
+										 (iter (1- n) (cdr seq) (cons (car seq) acc)))))
     (nreverse (iter n seq nil))))
 
 

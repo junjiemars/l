@@ -1,6 +1,5 @@
 ;;; -*- Mode: Lisp; Syntax: Common-Lisp -*-
+;;;; rocks.lisp
+;;;;
 
 
-(in-package #:arlo)
-
-(hello-world)
