@@ -20,8 +20,10 @@
 
 ;; pushnew macro is a variant of push that uses adjoin instead of cons
 
-(pushnew 'a *stacks*)
-(pushnew 'a *stacks*)
+(let ((x '(a b)))
+	(pushnew 'c x)
+	(pushnew 'a x)
+	x)
 
 
 
