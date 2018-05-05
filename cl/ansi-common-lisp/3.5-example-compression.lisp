@@ -5,6 +5,7 @@
 
 (defun run-length-compress (lst)
 	(labels ((compress (elt n)
+						 ;; == (make-list n :initial-element elt)
 						 (if (> n 1) (list n elt) elt))
 					 (iter (elt n lst aa)
 						 (if (null lst)
