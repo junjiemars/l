@@ -8,7 +8,7 @@
 						 (if (> n 1) (list n elt) elt))
 					 (iter (elt n lst aa)
 						 (if (null lst)
-								 (reverse aa)
+								 (reverse (cons (compress elt n) aa))
 								 (let ((next (car lst)))
 									 (if (eql next elt)
 											 (iter elt (1+ n) (cdr lst) aa)
