@@ -28,7 +28,15 @@
 (our-assoc1 "bb" '(("aa" 11) ("bb" 22) ("cc" 33))
 						:test #'string=)
 
+(assoc #\b '(("aa" 11) ("bb" 22) ("cc" 33))
+			 :key #'(lambda (x)
+								(char x 0))
+			 :test #'eql)
+
+;; error prone
 (our-assoc1 "bb" '(("xx" "aa" 11) ("xx" "bb" 22) ("xxx" "cc" 33))
 						:key #'cdar :test #'string=)
+
+
 
 ;; assoc-if 
