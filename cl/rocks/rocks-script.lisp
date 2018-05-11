@@ -2,7 +2,8 @@
 
 
 (in-package #:rocks/lab)
+(ql:quickload :split-sequence)
 
 (hello-world)
 
-(split-string #\, "a,b,c")
+(format t "~A~%" (split-string #\, "a,b,c"))

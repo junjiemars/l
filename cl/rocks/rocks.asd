@@ -23,4 +23,5 @@
   (:nicknames "L")
   (:use #:cl)
   (:export #:hello-world
+					 #:split-string
 					 ))
