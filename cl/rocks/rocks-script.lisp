@@ -7,3 +7,5 @@
 (hello-world)
 
 (format t "~A~%" (split-string #\, "a,b,c"))
+
+(interruptable)

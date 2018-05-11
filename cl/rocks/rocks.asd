@@ -24,4 +24,5 @@
   (:use #:cl)
   (:export #:hello-world
 					 #:split-string
+					 #:interruptable
 					 ))

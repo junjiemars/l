@@ -9,3 +9,12 @@
 
 (defun split-string (delimiter string)
 	(split-sequence:split-sequence delimiter string))
+
+(defun interruptable ()
+	(handler-case
+			(sleep 100000000)
+		(sb-sys:interactive-interrupt
+				()
+			(progn
+				(format *error-output* "~%# user interruptted.~%")
+				(sb-ext:exit :code 1)))))
