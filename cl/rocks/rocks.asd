@@ -4,7 +4,7 @@
   :version "1.0"
   :author "南山竹"
   
-  :depends-on nil ;; (:common-lisp)
+  :depends-on (:split-sequence)
   :serial t
   :components ((:file "seq")
                (:file "lab")))

@@ -10,6 +10,7 @@
 (load "rocks.asd")
 
 (require :rocks)
+(require :split-sequence)
 
 (sb-ext:save-lisp-and-die
  #-win32 "rocks" #+win32 "rocks.exe"
