@@ -2,7 +2,6 @@
 
 
 (in-package #:rocks/lab)
-(ql:quickload :split-sequence)
 
 (hello-world)
 
