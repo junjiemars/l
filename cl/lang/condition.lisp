@@ -3,21 +3,21 @@
 ;;;;
 
 
-(define-condition too-expendsive (error)
+(define-condition too-expensive (error)
   ((price :initarg :price
           :reader price))
   (:report (lambda (condition stream)
              (format stream "At ~A Euro~:P that's too expensive."
                      (price condition)))))
 
-(defparameter *price* (make-condition 'too-expendsive :price 49))
+(defparameter *price* (make-condition 'too-expensive :price 49))
 
 (price *price*)
 
 (format nil "~A" *price*)
 
 ;; signal does nothing and just returns nil
-(list (signal (make-condition 'too-expendsive)) :foo)
+(list (signal (make-condition 'too-expensive)) :foo)
 (list (signal (make-condition 'error)) :bar)
 
 ;; warn
@@ -36,3 +36,28 @@
 ;; cerror takes a format-control string, `M-.' to see definition
 ;;(cerror "Proceed." *price*)
 
+
+(defun access-condition (condition)
+	(handler-case (signal condition)
+		(warning () "Lots of smoke, but no fire.")
+		((or arithmetic-error control-error stream-error) (condition)
+			(format nil "~S looks especially bad." condition))
+		(serious-condition (condition)
+			(format nil "~S looks serious." condition))
+		(condition () "Hardly worth mentioniong.")))
+
+(access-condition (make-condition 'stream-error :stream *terminal-io*))
+
+(define-condition random-condition (condition)
+	()
+	(:report (lambda (condition stream)
+						 (declare (ignore condition))
+						 (princ "Yow" stream))))
+
+(access-condition (make-condition 'random-condition))
+
+(access-condition (make-condition 'serious-condition :bar #x1122))
+
+(defun foo (a b)
+	(handler-case (/ a b)
+		(division-by-zero (condition) (format t "~A~%" condition))))
