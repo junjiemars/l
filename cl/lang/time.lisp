@@ -13,7 +13,10 @@
 ;; ~ in (format) constrol string at the end of a line, and ~, newline,
 ;; whitespace following the newline are removed from the output.
 
-(defun format-universal-time (&optional universal-time time-zone)
+(defun format-universal-time (&key
+																(universal-time)
+																(unix-time)
+																(time-zone))
   (multiple-value-bind
         (second minute hour date month year day-of-week daylight-p zone)
       (if universal-time
@@ -24,7 +27,7 @@
 					:hour hour
 					:date date
 					:month month
-					:year year
+					:year (if unix-time (+ 70 year) year)
 					:day-of-week day-of-week
 					:daylight-p daylight-p
 					:zone zone)))
