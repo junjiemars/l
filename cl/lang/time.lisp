@@ -37,8 +37,13 @@
 (get-decoded-time)
 
 
+;; local time
+
 (ql:quickload :local-time)
 (local-time:now)
 (local-time:encode-timestamp 123456789 0 10 12 23 12 1965)
-(local-time:parse-timestring "1965-12-23")
+(local-time:parse-timestring "2018/5/12T21:36:20"
+														 :date-separator #\/)
+;; time zone
 (local-time:reread-timezone-repository)
+(local-time:find-timezone-by-location-name "Europe/Moscow")
