@@ -61,3 +61,13 @@
 (defun foo (a b)
 	(handler-case (/ a b)
 		(division-by-zero (condition) (format t "~A~%" condition))))
+
+
+(defun handle-division-condition (condition)
+	(format t "ddd~%")
+	(when (and (typep condition 'arithmetic-error)
+						 (eq '/ (arithmetic-error-operation condition)))
+		(format t "xxx")))
+
+(handle-division-condition (make-condition 'division-by-zero :operation '/))
+
