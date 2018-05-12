@@ -6,7 +6,7 @@
 
 ;; unix time since 00:00:01 on January 1,1970 UTC aka POSIX time or Epoch time
 ;; and not include leap seconds.
-;; unix timestamp: date +%s
+;; epoch time: date +%s
 
 
 ;; day-of-week start from Monday(0) end to Sunday(6)
