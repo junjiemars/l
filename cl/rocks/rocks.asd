@@ -25,4 +25,5 @@
   (:export #:hello-world
 					 #:split-string
 					 #:interruptable
+					 #:external-program
 					 ))

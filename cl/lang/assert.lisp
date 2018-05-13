@@ -32,4 +32,13 @@ signal an error.
            "~S should be a fixnum." n)
   (* n n))
 
+(defun dot-production (x y)
+	(assert* (and (typep x '(or list vector))
+								(typep y '(or list vector))
+								(= (length x) (length y)))
+					 (x y)
+					 "~S and ~S should have been sequences of the same length."
+					 x y)
+	(reduce #'+ (map 'list #'* x y)))
+
 (pushnew :release *features*)
