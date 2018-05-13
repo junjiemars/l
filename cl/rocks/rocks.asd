@@ -4,7 +4,8 @@
   :version "1.0"
   :author "南山竹"
   
-  :depends-on (:split-sequence)
+  :depends-on (:split-sequence
+							 :external-program)
   :serial t
   :components ((:file "seq")
                (:file "lab")))
@@ -25,5 +26,4 @@
   (:export #:hello-world
 					 #:split-string
 					 #:interruptable
-					 #:external-program
 					 ))
