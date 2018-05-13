@@ -5,6 +5,7 @@
   :author "南山竹"
   
   :depends-on (:split-sequence
+							 :inferior-shell
 							 :external-program)
   :serial t
   :components ((:file "seq")
