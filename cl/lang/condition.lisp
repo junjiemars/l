@@ -23,6 +23,18 @@
 ;; warn
 (list (warn (make-condition 'warning)) :baz)
 
+;; handler-bind
+
+;; => 99, sequentially matching bind*
+(catch 'do-what
+	(handler-bind ((error #'(lambda (x)
+														(format t "! ~A~%" x)
+														(throw 'do-what 99)))
+								 (division-by-zero #'(lambda (x)
+																			 (format t "! ~A~%" x)
+																			 (throw 'do-what 100))))
+		(/ 1 0)))
+
 (handler-case
     (signal *price*)
   (error ()
