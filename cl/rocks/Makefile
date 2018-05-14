@@ -17,7 +17,9 @@ clean:
 	@test ! -f rocks.fasb || rm rocks.fasb
 
 test: $(rocks_bin)
-	$(CURDIR)/$(rocks_bin) --non-interactive --eval '(rocks/lab:hello-world)'
+	$(CURDIR)/$(rocks_bin) --non-interactive \
+												 --eval '(asdf:load-system :rocks)' \
+                         --eval '(rocks/lab:hello-world)'
 
 default: $(rocks_bin)
 

@@ -7,10 +7,11 @@
                      :version nil
                      :defaults *load-truename*)
       asdf:*central-registry*)
-(load "rocks.asd")
 
-(require :rocks)
-(require :split-sequence)
+(ql:quickload '(:split-sequence
+								:inferior-shell
+								:external-program))
+(load "rocks.asd")
 
 (sb-ext:save-lisp-and-die
  #-win32 "rocks" #+win32 "rocks.exe"

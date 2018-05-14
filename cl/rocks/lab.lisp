@@ -3,8 +3,6 @@
 ;;;;
 
 (in-package #:rocks/lab)
-(asdf:load-systems :inferior-shell
-									 :external-program)
 
 (defun hello-world ()
 	(format t "Hello World!~%"))
