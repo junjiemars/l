@@ -16,11 +16,13 @@
 
 (format nil "~A" *price*)
 
-;; signal does nothing and just returns nil
+;; => (NIL :FOO), signal does nothing and just returns nil
 (list (signal (make-condition 'too-expensive)) :foo)
+
+;; => (NIL :BAR)
 (list (signal (make-condition 'error)) :bar)
 
-;; warn
+;; warn => (NIL :BAZ)
 (list (warn (make-condition 'warning)) :baz)
 
 ;; handler-bind
@@ -81,5 +83,6 @@
 						 (eq '/ (arithmetic-error-operation condition)))
 		(format t "xxx")))
 
-(handle-division-condition (make-condition 'division-by-zero :operation '/))
+(handle-division-condition
+ (make-condition 'division-by-zero :operation '/))
 
