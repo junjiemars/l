@@ -32,3 +32,11 @@ This executes in log N time, because of the check for even N."
 		(cond ((= n 0) 1)
 					((evenp n) (square (power3 x (/ n 2))))
 					(t (* x (power3 x (1- n)))))))
+
+
+(defun count-atoms (exp)
+	"Return the total number of non-nil atoms in the expression."
+	(cond ((null exp) 0)
+				((atom exp) 1)
+				(t (+ (count-atoms (first exp))
+							(count-atoms (rest exp))))))
