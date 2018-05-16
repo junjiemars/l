@@ -29,8 +29,12 @@ This executes in log N time, because of the check for even N."
 (defun power3 (b n)
 	(flet ((square (b) (* b b)))
 		(cond ((= 0 n) 1)
-					((evenp n) (power (square b) (/ n 2)))
-					(t (* b (power (1- n)))))))
+					((evenp n) (power3 (square b) (/ n 2)))
+					(t (* b (power3 b (1- n)))))))
+
+(untrace)
+(trace power3)
+(power 3 5)
 
 
 (defun count-atoms (exp)
