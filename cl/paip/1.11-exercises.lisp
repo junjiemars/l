@@ -1,5 +1,6 @@
 ;;;; -*- Mode: Lisp; Syntax: Common-Lisp -*-
 
+(declaim (optimize (speed 0) (debug 3) (safety 0)))
 
 ;; 1.2 Write a function to exponentiate, or raise a number to an integer
 ;; power.
@@ -11,21 +12,21 @@ This executes in log N time, because of the check for even N."
 				((evenp n) (expt (power x (/ n 2)) 2))
 				(t (* x (power x (- n 1))))))
 
-;; linear iteration
-(defun power1 (x n)
+;; linear iteration: Θ(n) steps and Θ(n) space.
+(defun power1 (b n)
 	(if (= n 0)
 			1
-			(* x (power1 x (1- n)))))
+			(* b (power1 b (1- n)))))
 
-;; linear tail recursion
-(defun power2 (x n)
-	(labels ((iter (x n p)
+;; linear tail recursion: Θ(n) steps and Θ(1) space.
+(defun power2 (b n)
+	(labels ((iter (b n p)
 						 (if (= n 0)
 								 p
-								 (iter x (1- n) (* x p)))))
-		(iter x n 1)))
+								 (iter b (1- n) (* b p)))))
+		(iter b n 1)))
 
-;; log N tail recursion
+;; log N tail recursion: Θ(logN) steps and Θ(1) space.
 (defun power3 (b n)
 	(flet ((square (b) (* b b)))
 		(cond ((= 0 n) 1)
@@ -50,8 +51,8 @@ This executes in log N time, because of the check for even N."
 (defun count-atoms1 (exp acc)
 	(if (null exp)
 			acc
-			(foo (cdr exp)
-					 (let ((1st (car exp)))
-						 (cond ((null 1st) acc)
-									 ((atom 1st) (1+ acc))
-									 (t (foo 1st acc)))))))
+			(count-atoms1 (cdr exp)
+										(let ((1st (car exp)))
+											(cond ((null 1st) acc)
+														((atom 1st) (1+ acc))
+														(t (count-atoms1 1st acc)))))))
