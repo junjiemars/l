@@ -25,13 +25,12 @@ This executes in log N time, because of the check for even N."
 								 (iter x (1- n) (* x p)))))
 		(iter x n 1)))
 
-;; log N recursion
-(defun power3 (x n)
-	(labels ((square (x)
-						 (* x x)))
-		(cond ((= n 0) 1)
-					((evenp n) (square (power3 x (/ n 2))))
-					(t (* x (power3 x (1- n)))))))
+;; log N tail recursion
+(defun power3 (b n)
+	(flet ((square (b) (* b b)))
+		(cond ((= 0 n) 1)
+					((evenp n) (power (square b) (/ n 2)))
+					(t (* b (power (1- n)))))))
 
 
 (defun count-atoms (exp)
