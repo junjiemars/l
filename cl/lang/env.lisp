@@ -9,13 +9,12 @@
    (machine-type)
    (machine-version)
    (software-type)
-   (software-type)
    (software-version)))
 
 ;; set/unset env variables
-(sb-posix:getenv "NJINA")
+(sb-posix:getenv "NINJA")
 (sb-posix:setenv "NINJA" "Jakawa" 1)
-(string= "Jakawa" (sb-posix:getenv "NJINA"))
+(string= "Jakawa" (sb-posix:getenv "NINJA"))
 (sb-posix:unsetenv "NINJA")
 
 ;; command-line arguments
