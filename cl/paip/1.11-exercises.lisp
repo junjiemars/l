@@ -34,7 +34,7 @@ This executes in log N time, because of the check for even N."
 
 (untrace)
 (trace power3)
-(power 3 5)
+(power3 3 5)
 
 
 (defun count-atoms (exp)
