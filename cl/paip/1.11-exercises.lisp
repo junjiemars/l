@@ -43,3 +43,15 @@ This executes in log N time, because of the check for even N."
 				((atom exp) 1)
 				(t (+ (count-atoms (first exp))
 							(count-atoms (rest exp))))))
+
+
+;; tail recursion
+;; labels can't traced
+(defun count-atoms1 (exp acc)
+	(if (null exp)
+			acc
+			(foo (cdr exp)
+					 (let ((1st (car exp)))
+						 (cond ((null 1st) acc)
+									 ((atom 1st) (1+ acc))
+									 (t (foo 1st acc)))))))
