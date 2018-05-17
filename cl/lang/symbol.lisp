@@ -17,6 +17,15 @@
   (:import-from :p2 :delta))
 
 
+;; make fresh, uninterned symbols
+(defparameter *x* "aaa1")
+;; => T|NIL, implemenation dependent
+(eq *x* (symbol-name (make-symbol *x*)))
+;; fresh, => NIL
+(eq (make-symbol *x*) (make-symbol *x*))
+(find-symbol "AAA1") ;; => NIL,NIL
+
+
 ;; make symbol inaccessible
 (defun inaccessible-fn () 49)
 (defparameter *inaccessible-fn* 'inaccessible-fn)
