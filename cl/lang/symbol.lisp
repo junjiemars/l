@@ -1,4 +1,6 @@
 
+;;;; -*- Mode: Lisp; Syntax: Common-Lisp -*-
+
 (defpackage :p1
   (:intern :alpha)
   (:export :bravo :charlie))
@@ -13,27 +15,6 @@
   (:use :p2 :cl)
   (:export :charlie)
   (:import-from :p2 :delta))
-
-
-(defmacro swap0 (x y)
-  `(let ((tmp ,x))
-     (setf ,x ,y ,y tmp)
-     (list 'x ,x 'y ,y)))
-;; does not swap expectly
-(let ((x 123)
-      (tmp 234))
-  (swap0 x tmp))
-
-;; use (gensym) to avoid name capture
-(defmacro swap (x y)
-  (let ((tmp (gensym)))
-    `(let ((,tmp ,x))
-       (setf ,x ,y ,y ,tmp)
-       (list 'x ,x 'y ,y))))
-
-;; generate fresh symbols
-(list *gensym-counter* (gensym) (gensym) (gensym "fo | o"))
-(list (make-symbol "a1") (make-symbol "a b c"))
 
 
 ;; make symbol inaccessible
