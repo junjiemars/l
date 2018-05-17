@@ -1,20 +1,4 @@
-
 ;;;; -*- Mode: Lisp; Syntax: Common-Lisp -*-
-
-(defpackage :p1
-  (:intern :alpha)
-  (:export :bravo :charlie))
-
-(defpackage :p2
-  (:intern :alpha :delta)
-  (:use :p1)
-  (:export :bravo :echo))
-
-(defpackage :p3
-  (:intern :alpha)
-  (:use :p2 :cl)
-  (:export :charlie)
-  (:import-from :p2 :delta))
 
 
 ;; make fresh, uninterned symbols
@@ -40,40 +24,39 @@
 (fboundp 'inaccessible-fn) ;; => T
 
 
-;; shadowing: avoid name conflicts
-
-(defpackage :bio
-  (:use :cl)
-  (:export :cat :dog :tree))
-
-(in-package :bio)
-(defclass tree () ())
-(defpackage :grapha
-  (:use :cl)
-  (:export :vertex :edge :tree))
-;; will shadow 'grapha:tree if 'tree existing
-;; (shadow 'tree)
-;; will import 'grpha:tree and shadown the existing 'bio:tree
-(shadowing-import 'grapha:tree)
-(use-package :grapha)
-
 ;; collect all symbols in a package
-(loop for s being each external-symbol of *package*
-     collect s)
+;; (loop for s being each external-symbol of *package*
+;;      collect s)
 
 ;; symbol case (in)sensitive? default is UPCASE
-(eq :upcase (readtable-case *readtable*))
-(eq 'foo 'Foo)
-(eq 'foo 'F\oO)
-(eq (|SYMBOL-NAME| 'foo) (SYMBOL-NAME 'foo))
-#|
+(if (eq :upcase (readtable-case *readtable*))
+		(and
+		 (eq 'foo 'Foo)
+		 (eq (|SYMBOL-NAME| 'foo) (SYMBOL-NAME 'foo)))) ;; => T
+
 (SETF (READTABLE-CASE *READTABLE*) :PRESERVE)
-(EQ 'FOO 'FOO)
-(EQ 'foo 'FOO)
+(EQ 'FOO 'FOO) ;; => T
+(EQ 'foo 'FOO) ;; => NIL
 (SETF (READTABLE-CASE *READTABLE*) :UPCASE)
-|#
 
 ;; is same thing? or interchangeable?
-(length
- (remove-duplicates
-  (mapcar #'find-package '(CL :CL #:CL "CL"))))
+(= 1 (length
+			(remove-duplicates
+			 (mapcar #'find-package '(cl CL :CL #:CL "CL"))))) ;; => T
+
+(defpackage :p1
+  (:intern :alpha)
+	(:use :cl)
+  (:export :bravo :charlie))
+
+(defpackage :p2
+  (:intern :alpha :delta)
+  (:use :p1)
+	(:shadowing-import-from :p1 :bravo)
+  (:export :bravo :echo))
+
+(defpackage :p3
+  (:intern :alpha)
+  (:use :p2 :cl)
+  (:export :charlie)
+  (:import-from :p2 :delta))
