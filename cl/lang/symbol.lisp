@@ -30,16 +30,15 @@
 (defun inaccessible-fn () 49)
 (defparameter *inaccessible-fn* 'inaccessible-fn)
 (symbol-function 'inaccessible-fn)
-
-#|
 (unintern 'inaccessible-fn)
-;; (funcall *inaccessible-fn*) => unbound
+(fboundp 'inaccessible-fn) ;; => NIL
 ;; restore inaccessible-fn -> fn object
 (setf (symbol-function 'inaccessible-fn)
       (symbol-function *inaccessible-fn*))
 ;; or 
-(import *inaccessible-fn*)
-|#
+;; (import *inaccessible-fn*)
+(fboundp 'inaccessible-fn) ;; => T
+
 
 ;; shadowing: avoid name conflicts
 
