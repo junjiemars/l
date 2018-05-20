@@ -35,3 +35,7 @@
 (mapcar #'first-name *names*)
 
 ;; `C-c C-t'  trace first-name
+
+;; traced 4 times
+(first-name '(Madam Major General Paula Jones))
+
