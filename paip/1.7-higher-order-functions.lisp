@@ -71,6 +71,18 @@ the lambda notation.
 				 '((1 2 3) (a b c))) ;; => ((1 2 3) (3 2 1) (A B C) (C B A))
 
 
+(defparameter *x* (lambda (x) (* x 2)))
+(symbol-value '*x*) ;; => #<FUNCTION (LAMBDA (X)) {1001EF73FB}>
+;; (*x* 3) => function *x* not defined
+(funcall *x* 3) ;; => 6
+(setf (symbol-function '*x*) (symbol-value '*x*))
+(*x* 3) ;; => 6
+
+(eq (function *x*) #'*x*) ;; => T
+
+(functionp (lambda (x) (+ 2 x))) ;; => T
+
+
 #|
 There are two reasons why lambda expressions are very useful:
 1. It can be clearer to define a function as a lambda expression rather than
