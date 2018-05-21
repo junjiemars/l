@@ -65,7 +65,7 @@ verb => hit, took, saw, liked, ...
 The craft of programming includes knowing what not to write, as well as 
 what to write.
 This style of programing is called data-driven programming, because the data
-drivews what the program does next. It is a natural and easy-to-use style in 
+driven what the program does next. It is a natural and easy-to-use style in 
 Lisp, leading to concise and extensible programs, having to modify the 
 original program.
 |#
