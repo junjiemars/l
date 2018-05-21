@@ -65,7 +65,7 @@ verb => hit, took, saw, liked, ...
 The craft of programming includes knowing what not to write, as well as 
 what to write.
 This style of programing is called data-driven programming, because the data
-drivews what the program does next. It is a natural and easy-to-use style in 
+driven what the program does next. It is a natural and easy-to-use style in 
 Lisp, leading to concise and extensible programs, having to modify the 
 original program.
 |#
@@ -74,8 +74,17 @@ original program.
 (defun generate1 (phrase)
 	"Generate a random sentence or phrase."
 	(if (listp phrase)
-			(mappend #'generate phrase)
+			(mappend #'generate1 phrase)
 			(let ((choices (rewrites phrase)))
 				(if (null choices)
 						(list phrase)
-						(generate (random-elt choices))))))
+						(generate1 (random-elt choices))))))
+
+
+;; Exercise 2.1
+;; Write a version of generate that uses cond but avoids calling rewrites twice.
+
+
+;; Exercise 2.2
+;; Write a version of generate that explicitly differentiates between
+;; terminal symbols (those with no rewrite rules) and nonterminal symbols.
