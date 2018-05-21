@@ -127,3 +127,50 @@ original program.
 	"A grammar for a trivial subset of English.")
 
 (setf *grammar* *bigger-grammar*)
+(generate3 'sentence)
+
+#|
+2.6-using-the-same-data-for-serveral-program.lisp
+|#
+
+(setf *grammar* *simple-grammar*)
+
+(defun generate-tree (phrase)
+	"Generate a random sentence or phrase, with a complete parse tree."
+	(cond ((listp phrase)
+				 (mapcar #'generate-tree phrase))
+				((non-terminal-p phrase)
+				 (cons phrase (generate-tree (random-elt (rewrites phrase)))))
+				(t (list phrase))))
+
+#|
+We can now use generate-all to test our original grammar.
+Note that a serious drawback of generate-all is that it can't deal with
+recursive grammar rules like 'adj* => adj + adj*' that appear in 
+*bigger-grammar*, since these lead to an infinite number of outputs.
+|#
+
+(defun combine-all (xlist ylist)
+	"Return a list of lists formed by appending a y to an x.
+E.g., (combine-all '((a) (b)) '((1) (2))
+=> ((a 1) (b 1) (a 2) (b 2))"
+	(mappend #'(lambda (y)
+							 (mapcar #'(lambda (x)
+													 (append x y)) xlist))
+					 ylist))
+
+
+(defun generate-all (phrase)
+	"Generate a list of all possible expansions of this phrase."
+	(cond ((null phrase) (list nil))
+				((listp phrase)
+				 (combine-all (generate-all (first phrase))
+											(generate-all (rest phrase))))
+				((non-terminal-p phrase)
+				 (mappend #'generate-all (rewrites phrase)))
+				(t (list (list phrase)))))
+
+
+(generate-all 'article)
+(generate-all 'noun)
+(generate-all 'noun-phrase)
