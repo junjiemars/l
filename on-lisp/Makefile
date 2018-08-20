@@ -2,10 +2,10 @@
 
 EMACS=emacs
 
-test: 	2.6_test \
-		2.7_test \
-		2.8_test \
-		2.9_test
+test: 2.6_test \
+			2.7_test \
+			2.8_test \
+			2.9_test
 
 
 2.6_test: 2.6-closures.el 2.6-closures-test.el
