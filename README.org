@@ -1,12 +1,26 @@
-#+startup: entitiespretty
-#+latex_compiler: xelatex
-#+latex_header: \usepackage[utf8x]{inputenc}
 #+title: Sample of Org
 #+author: 南山竹
+#+startup: entitiespretty
+#+latex_compiler: xelatex
+#+latex_header: \usepackage{listings}
+#+latex_header: \usepackage{fontspec}
+#+latex_header: \usepackage{xunicode}
+#+latex_header: \usepackage{xltxtra}
+#+latex_header: \usepackage{xeCJK}
+#+latex_header: \usepackage[utf8x]{inputenc}
 
-* Network
 
-** HTTP
+* Gambit
+
+** Tutorial
+
+*** Make executable
+
+#+BEGIN_SRC sh
+gambitc -exe x.scm
+#+END_SRC
+
 
 *** References
-- [[https://edicl.github.io/drakma/][Drakma - A Common Lisp HTTP client]]
+- [[https://schemers.org/Documents/Standards/R5RS/HTML/][R5RS]]
+- [[http://www.gambitscheme.org/wiki/index.php/Main_Page][Gambit Main Page]]

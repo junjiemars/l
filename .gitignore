@@ -18,3 +18,11 @@ bin
 **/rocks/rocks.exe
 **/hi/hi.exe
 **/hi/hi
+**/*.six
+**/*.cfg
+**/*.pdf
+**/*.cc
+**/*.gvm
+**/*.o1
+**/*.o2
+**/*.dg
