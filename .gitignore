@@ -18,8 +18,6 @@ bin
 **/*.fasb
 **/rocks/rocks
 **/rocks/rocks.exe
-**/hi/hi.exe
-**/hi/hi
 **/*.six
 **/*.cfg
 **/*.pdf
