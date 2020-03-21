@@ -1,3 +1,5 @@
+*.html
+*.pdf
 *.rkt~
 ~.swp
 *.md~
