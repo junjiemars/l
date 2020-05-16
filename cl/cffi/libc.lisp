@@ -1,6 +1,6 @@
 ;;;; -*- Mode: lisp;
 
-(defpackage #:cffi-libc
+(defpackage #:cffi-user
   (:use #:cl #:cffi)
   (:export
    #:cffi-version
@@ -9,7 +9,7 @@
    #:gethostname
    #:gettimeofday))
 
-(in-package #:cffi-libc)
+(in-package #:cffi-user)
 
 (defun cffi-version ()
   (asdf:component-version (asdf:find-system 'cffi)))

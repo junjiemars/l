@@ -1,0 +1,32 @@
+
+
+----------------------------------------
+checking for C compiler
+
+
+----------------------------------------
+checking for C++ compiler
+
+out/autotest.c:1:10: fatal error: 'iostream' file not found
+#include <iostream>
+         ^~~~~~~~~~
+1 error generated.
+----------
+#include <iostream>
+
+int main(void) {
+    std::cout << "cc\n";;
+    return 0;
+}
+
+----------
+cc -o out/autotest out/autotest.c
+----------
+
+----------------------------------------
+checking for cache line size
+
+
+----------------------------------------
+checking for endian
+
