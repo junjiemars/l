@@ -14,6 +14,7 @@ bin
 *.fasl
 **/*.db
 **/*.exe
+**/*.out
 **/cl/standalone/app
 **/*.fasb
 **/rocks/rocks

@@ -1,6 +1,6 @@
 # gambitc hi
 
-hi_bin := hi
+hi_bin := hi.out
 ifeq ($(OS), Windows_NT)
 	hi_bin := hi.exe
 endif
