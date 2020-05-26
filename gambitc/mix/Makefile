@@ -1,6 +1,6 @@
 # mix: c and scheme
 
-mix_bin := mix
+mix_bin := mix.out
 ifeq ($(OS), Windows_NT)
 	mix_bin := mix.exe
 endif
