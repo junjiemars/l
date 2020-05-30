@@ -1,4 +1,7 @@
-
+(defpackage #:rocks/seq
+  (:use #:common-lisp)
+  (:export
+   #:range))
 
 (in-package #:rocks/seq)
 
@@ -7,17 +10,17 @@
 
 (defun take (n seq)
   (labels ((iter (n seq acc)
-								 (if (or (<= n 0) (null seq))
-										 acc
-										 (iter (1- n) (cdr seq) (cons (car seq) acc)))))
+             (if (or (<= n 0) (null seq))
+                 acc
+                 (iter (1- n) (cdr seq) (cons (car seq) acc)))))
     (nreverse (iter n seq nil))))
 
 
 (defun range (max &key (min 0) (step 1) (randomized nil))
   (loop for n from min below max by step
-           collect (if randomized
-                       (+ min (random max))
-                       n)))
+     collect (if randomized
+                 (+ min (random (1+ (- max min))))
+                 n)))
 
 
 (defun longer (x y)
@@ -46,3 +49,4 @@
                ,@body)))))
 
 
+;; eof
