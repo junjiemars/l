@@ -1,5 +1,3 @@
-
-
 ;; There are no `forward declaration' in Common Lisp?
 ;; simulate: forward declaration
 (defun finder (obj vec start end)

@@ -1,20 +1,24 @@
+(setf *print-array* t)
 
-(defparameter *x* (make-array '(2 3) :initial-element nil))
+(defparameter *x23* (make-array '(2 3) :initial-element nil))
 
-(setf (aref *x* 0 0) 'a)
+(setf (aref *x23* 0 0) 'a)
+(setf (aref *x23* 1 1) 'b)
 
-(aref *x* 0 0)
+(aref *x23* 0 0)
+(aref *x23* 1 1)
+
+;; array literal
+;; #2a((a nil nil) (b nil nil))
 
 
-(when (not *print-array*)
-  (let ((*print-array* t))
-    *x*))
+(defparameter *x4* (make-array 4 :initial-element nil))
 
+;; a one-dimensional array is also called a vector
+(vector "a" 'b 3)
 
-(defparameter *v* (make-array 4 :initial-element nil))
-
-(setf (aref *v* 0) 9)
+(defparameter *v1* (vector "a" 'b 3))
 
 ;; simple-vector ref
-(svref (vector "a" 'b 3) 1)
+(svref *v1* 1)
 
