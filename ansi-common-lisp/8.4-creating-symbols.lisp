@@ -9,4 +9,7 @@
 ;; notice the second argument, default is `*package*'
 (intern "RANDOM-SYMBOL")
 
+;; Not all symbols are interned. Uninterned symbols are called
+;; `gensym'.
+
 
