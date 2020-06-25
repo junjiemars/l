@@ -1,3 +1,5 @@
+;; Conceptually, packages are symbol-tables, mapping names to symbols.
+
 (package-name *package*)
 
 (find-package "COMMON-LISP-USER")
