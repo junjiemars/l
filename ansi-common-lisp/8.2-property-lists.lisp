@@ -9,8 +9,6 @@
 
 (setf (get 'alizarin 'transparency) 'high)
 
-(symbol-plist 'alizarin)
-
 ;; package -> name       -> "FOO"
 ;;         -> package    -> home package
 ;;         -> value      0x11223344
@@ -22,3 +20,12 @@
 ;; 
 ;; In CL, property-list aren't used very much. They have largely been
 ;; superseded by hash tables.
+
+(symbol-package 'alizarin)
+(symbol-plist 'alizarin)
+
+(setf (symbol-value 'alizarin) #x1122)
+(setf (symbol-function 'alizarin) (lambda (x) (* x 10)))
+
+(assert (= #x1122 (symbol-value 'alizarin)))
+(assert (= 100 (funcall (symbol-function 'alizarin) 10)))
