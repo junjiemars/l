@@ -1,3 +1,5 @@
+;; One potenially confusing thing about Lisp is that symbols are
+;; related to variables in two very different ways.
 
 ;; When a symbol is the name of a special variable,
 ;; the value of the variable is stored in a field within the symbol.
