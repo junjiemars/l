@@ -12,7 +12,7 @@
 (symbol-plist 'alizarin)
 
 ;; package -> name       -> "FOO"
-;;         -> package    -> hosting
+;;         -> package    -> home package
 ;;         -> value      0x11223344
 ;;         -> function   #<function>
 ;;         -> plist      (color red)
