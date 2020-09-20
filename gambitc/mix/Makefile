@@ -21,7 +21,7 @@ $(mix_obj): m1.c m2.c m3.c m3_.c
 	$(gsc) -verbose -obj $^
 
 $(mix_bin): $(mix_obj)
-	$(gsc) -verbose -exe -o $@ $^
+	$(gsc) -verbose -o $@ -exe $^
 
 clean:
 	$(RM) $(mix_bin)

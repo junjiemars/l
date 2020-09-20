@@ -13,7 +13,7 @@ hi_dg_pdf := hi.dg.pdf
 gsc := gambitc
 
 $(hi_bin): hi.scm
-	$(gsc) -exe -cfg -dg -o $@ $<
+	$(gsc) -o $@ -exe -cfg -dg $<
 
 clean:
 	test ! -f $(hi_bin) || rm $(hi_bin)
