@@ -53,9 +53,9 @@ $(mix_obj): m1.c m2.c m3.c m3_.c
 $(mix_bin_out): $(mix_obj)
 	$(gsc) $(gsc_opt) -o $@ -exe $^
 
-mix_shared_deps := m1.o m2.o mixlib.o
+mix_shared_deps := m1.o m2.o mixlib.o $(libgambit.a)
 $(mix_lib_out): $(mix_shared_deps)
-	$(CC) -o $@ $(mix_lib_opt) $^ $(libgambit.a)
+	$(CC) -o $@ $(mix_lib_opt) $^
 
 mixlib.c: m2.scm
 	$(gsc) -link -o $@ $^
