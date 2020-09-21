@@ -7,12 +7,10 @@
 
 mix_bin := mix
 mix_lib := mix.so
-shared_opt := shared
 
 ifeq ($(shell uname), Darwin)
 	mix_bin := mix
 	mix_lib := mix.dylib
-	shared_opt := -dynamiclib
 else ifeq ($(OS), Windows_NT)
 	mix_bin := mix.exe
 	mix_lib := mix.lib
