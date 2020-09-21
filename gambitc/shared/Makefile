@@ -1,5 +1,8 @@
+#
 # mix: c and scheme
-
+#
+# 
+#
 
 ifeq ($(shell uname), Darwin)
 	mix_lib := mix.dylib
@@ -14,13 +17,17 @@ else
 	mix_bin := mix
 endif
 
-gsc := gambitc
+gsc := gsc-script
+gsc_opt :=
+ifeq ($(shell test -n "$(VERBOSE)" && test $(VERBOSE) -gt 0; echo $$?),0)
+	gsc_opt := -verbose
+endif
 
 mixlib.c: m1.c m2.scm
-	$(gsc) -verbose -link -o $@ m2
+	$(gsc) -link -o $@ m2
 
 $(mix_lib): mixlib.c
-	$(gsc) -verbose -obj -cc-options "-D___SHARED" m1.c m2.c $<
+	$(gsc) -obj -cc-options "-D___SHARED" m1.c m2.c $<
 	$(CC) $(shared_opt) m1.o m2.o mixlib.o -o $@
 
 clean:

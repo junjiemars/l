@@ -5,10 +5,19 @@
 # VERBOSE=1 make clean test
 #
 
-mix_bin := mix.out
-ifeq ($(OS), Windows_NT)
+mix_bin := mix
+mix_lib := mix.so
+shared_opt := shared
+
+ifeq ($(shell uname), Darwin)
+	mix_bin := mix
+	mix_lib := mix.dylib
+	shared_opt := -dynamiclib
+else ifeq ($(OS), Windows_NT)
 	mix_bin := mix.exe
+	mix_lib := mix.lib
 endif
+
 
 gsc := gsc-script
 gsc_opt :=
@@ -33,9 +42,19 @@ $(mix_obj): m1.c m2.c m3.c m3_.c
 $(mix_bin): $(mix_obj)
 	$(gsc) $(gsc_opt) -o $@ -exe $^
 
+mix_shared_deps := m1.o m2.o mixlib.o
+$(mix_lib): $(mix_shared_deps)
+	$(CC) -o $@ -shared $^
+
+mixlib.c: m2.scm
+	$(gsc) -link -o $@ $^
+
+mixlib.o: m1.c m2.c mixlib.c
+	$(gsc) -obj -cc-options "-D___SHARED" $^
+
 clean:
-	$(RM) $(mix_bin)
-	$(RM) m2.c m3.c m3_.c
+	$(RM) $(mix_bin) $(mix_lib)
+	$(RM) m2.c m3.c m3_.c mixlib.c
 	$(RM) *.o
 
 test: $(mix_bin)
