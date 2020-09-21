@@ -10,7 +10,7 @@ hi_cfg_pdf := hi.cfg.pdf
 hi_dg := hi.dg
 hi_dg_pdf := hi.dg.pdf
 
-gsc := gambitc
+gsc := gsc-script
 
 $(hi_bin): hi.scm
 	$(gsc) -o $@ -exe -cfg -dg $<

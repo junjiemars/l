@@ -10,7 +10,7 @@ ifeq ($(OS), Windows_NT)
 	mix_bin := mix.exe
 endif
 
-gsc := gambitc
+gsc := gsc-script
 gsc_opt :=
 ifeq ($(shell test -n "$(VERBOSE)" && test $(VERBOSE) -gt 0; echo $$?),0)
 	gsc_opt := -verbose
