@@ -29,6 +29,7 @@ libgambit.a := $(shell dirname $(shell dirname $(shell which gsc-script)))/lib/l
 
 mix_bin: $(mix_bin_out)
 mix_lib: $(mix_lib_out)
+test: test_mix_bin test_mix_lib
 
 test_mix_bin: $(mix_bin_out)
 	$(CURDIR)/$(mix_bin_out)
