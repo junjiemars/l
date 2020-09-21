@@ -3,7 +3,6 @@
 #define _unused_(x) ((void)(x))
 
 extern int power_of_2(int);
-extern 
 
 int
 main(int argc, char **argv) {
