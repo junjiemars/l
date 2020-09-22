@@ -8,7 +8,11 @@
 mix_bin_out := mix
 mix_lib_out := libmix.so
 mix_lib_c_out := mixc
-mix_lib_opt := -shared
+mix_lib_opt := -shared -fPIC
+
+LDFLAGS += -L$(CURDIR)
+LDLIBS += -lmix -lm -ldl -lutil
+LD_LIBRARY_PATH := LD_LIBRARY_PATH=$(CURDIR)
 
 ifeq ($(shell uname), Darwin)
 	mix_lib_out := libmix.dylib
@@ -31,11 +35,11 @@ mix_bin: $(mix_bin_out)
 mix_lib: $(mix_lib_out)
 test: test_mix_bin test_mix_lib
 
-test_mix_bin: $(mix_bin_out)
+test_mix_bin: mix_bin
 	$(CURDIR)/$(mix_bin_out)
 test_mix_lib: $(mix_lib_c_out)
-	$(CURDIR)/$(mix_lib_c_out) 2
-	$(CURDIR)/$(mix_lib_c_out) 3
+	$(LD_LIBRARY_PATH) $(CURDIR)/$(mix_lib_c_out) 2
+	$(LD_LIBRARY_PATH) $(CURDIR)/$(mix_lib_c_out) 3
 
 
 m2.c: m2.scm
@@ -56,7 +60,7 @@ $(mix_bin_out): $(mix_obj)
 
 mix_shared_deps := m1.o m2.o mixlib.o $(libgambit.a)
 $(mix_lib_out): $(mix_shared_deps)
-	$(CC) -o $@ $(mix_lib_opt) $^
+	$(CC) -o $@ $(mix_lib_opt) $^ -lm -ldl -lutil
 
 mixlib.c: m2.scm
 	$(gsc) -link -o $@ $^
@@ -64,8 +68,8 @@ mixlib.c: m2.scm
 mixlib.o: m1.c m2.c mixlib.c
 	$(gsc) -obj -cc-options "-D___SHARED" $^
 
-$(mix_lib_c_out): test_mix_lib.c $(mix_lib_out)
-	$(CC) $(CFLAGS) $(INC) $^ -o $@
+$(mix_lib_c_out): test_mix_lib.c mix_lib
+	$(CC) $(CFLAGS) $(INC) $< -o $@ $(LDFLAGS) $(LDLIBS)
 
 
 clean:
