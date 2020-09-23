@@ -29,7 +29,7 @@ gsc_opt :=
 ifeq ($(shell test -n "$(VERBOSE)" && test $(VERBOSE) -gt 0; echo $$?),0)
 	gsc_opt := -verbose
 endif
-libgambit.a := $(shell dirname $(shell dirname $(shell which gsc-script)))/lib/libgambit.a
+libgambit.a := $(shell gsc-script -e '(display (path-expand "~~lib"))')libgambit.a
 
 
 mix_bin: $(mix_bin_out)
