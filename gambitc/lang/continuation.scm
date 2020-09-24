@@ -18,17 +18,22 @@
 					 (* 5 (x 4))))
 
 
-(define naive-find
-	(lambda (pred xs)
-		(cond ((null? xs) '())
-					((pred (car xs)) (car xs))
-					(else (naive-find pred (cdr xs))))))
+(+ 1 (call/cc (lambda (k)
+                (* 2 (k 3)))))
 
-(define sophistic-find
-	(lambda (pred xs)
-		(call/cc (lambda (k)
-							 (letrec ((fn (lambda (pred xs1)
-															(cond ((null? xs1) (k '()))
-																		((pred (car xs1)) (k (car xs1)))
-																		(else (fn pred (cdr xs1)))))))
-								 (fn pred xs))))))
+(+ 1 (* 4 (call/cc (lambda (k)
+                     (* 2 (k 3))))))
+
+(let ([x (call/cc (lambda (k) k))])
+  (x (lambda (ignore) "hi")))
+
+;; The value of the call/cc is its own continuation, as in the
+;; preceding example. This is applied to the identity procedure
+;; (lambda (x) x), so the call/cc returns a second time with this
+;; value. Then, the identity procedure is applied to itself, yielding
+;; the identity procedure. This is finally applied to "HEY!", yielding
+;; "HEY!".
+
+(((call/cc (lambda (k) k))              ; return the continuation
+  (lambda (x) x))                       ; apply the continuation with λ(x)
+ "HEY!")                                ; apply λ("HEY")
