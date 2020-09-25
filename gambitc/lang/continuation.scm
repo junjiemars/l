@@ -37,3 +37,25 @@
 (((call/cc (lambda (k) k))              ; return the continuation
   (lambda (x) x))                       ; apply the continuation with λ(x)
  "HEY!")                                ; apply λ("HEY")
+
+
+(define (product1 xs)
+	(cond ((null? xs) 1)
+				((= 0 (car xs)) 0)
+				(else (* (car xs) (product1 (cdr xs))))))
+
+(define (product2 xs)
+	(call/cc (lambda (k)
+						 (let fn ((xs1 xs))
+							 (cond ((null? xs1) 1)
+										 ((= 0 (car xs1)) (k 0))
+										 (else (* (car xs1) (fn (cdr xs1)))))))))
+
+(define (product3 xs)
+	(call/cc (lambda (k)
+						 (let fn ((xs1 xs)
+											(acc 1))
+							 (cond ((null? xs1) acc)
+										 ((= 0 (car xs1)) (k 0))
+										 (else (fn (cdr xs1) (* acc (car xs1)))))))))
+
