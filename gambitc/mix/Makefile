@@ -11,7 +11,7 @@ mix_lib_c_out := mixc
 mix_lib_opt := -shared -fPIC
 
 LDFLAGS += -L$(CURDIR)
-LDLIBS += -lmix -lm -ldl -lutil
+LDLIBS += -lmix -lm -ldl -lutil -lssl -lpthread -lcrypto
 LD_LIBRARY_PATH := LD_LIBRARY_PATH=$(CURDIR)
 
 ifeq ($(shell uname), Darwin)
