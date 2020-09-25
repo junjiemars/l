@@ -59,3 +59,10 @@
 										 ((= 0 (car xs1)) (k 0))
 										 (else (fn (cdr xs1) (* acc (car xs1)))))))))
 
+(define *retry* #f)
+(define factorial1
+	(lambda (n)
+		(if (= 0 n)
+				(call/cc (lambda (k) (set! *retry* k) 1))
+				(* n (factorial1 (- n 1))))))
+
