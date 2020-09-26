@@ -24,7 +24,7 @@ else ifeq ($(OS), Windows_NT)
 endif
 
 gsc := gsc-script
-gsc_opt :=
+gsc_opt := -keep-temp
 ifeq ($(shell test -n "$(VERBOSE)" && test $(VERBOSE) -gt 0; echo $$?),0)
 	gsc_opt := -verbose
 endif
@@ -41,7 +41,8 @@ basic_test: basic_bin
 
 clean:
 	$(RM) $(basic_bin_out) $(basic_lib_out) $(basic_lib_c_out)
-	$(RM) *.o
+	$(RM) b1.c b1_.c
+	$(RM) *.o *.o1
 	$(RM) *.dg
 
 
