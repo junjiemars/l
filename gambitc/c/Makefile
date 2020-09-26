@@ -1,4 +1,4 @@
-# mix: c and scheme
+# c: interactive with scheme
 #
 # make clean test
 # GAMBCOMP_VERBOSE=yes make clean test
@@ -32,7 +32,7 @@ libgambit.a := $(shell gsc-script -e '(display (path-expand "~~lib"))')libgambit
 
 
 basic_bin: $(basic_bin_out)
-$(basic_bin_out): b1.scm b2.scm
+$(basic_bin_out): b1.scm b2.scm b3.scm b4.scm
 	$(gsc) $(gsc_opt) -o $@ -exe $^
 
 test: basic_test
@@ -41,8 +41,8 @@ basic_test: basic_bin
 
 clean:
 	$(RM) $(basic_bin_out) $(basic_lib_out) $(basic_lib_c_out)
-	$(RM) b1.c *_.c
-	$(RM) *.o *.o1 *.o2 *.o3
+	$(RM) b*.c *_.c
+	$(RM) *.o *.o*
 	$(RM) *.dg
 
 
