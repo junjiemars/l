@@ -66,3 +66,14 @@
 				(call/cc (lambda (k) (set! *retry* k) 1))
 				(* n (factorial1 (- n 1))))))
 
+
+(let* ([f (lambda (x) (cons 'a x))]
+       [g (lambda (x) (cons 'b (f x)))]
+       [h (lambda (x) (g (cons 'c x)))])
+	(cons 'd (step) (h '())))
+
+;;; (cons 'd (h '()))
+;;; (cons 'd (g (cons 'c '())))
+;;; (cons 'd (cons 'b (f (cons 'c '()))))
+;;; (cons 'd (cons 'b (cons 'a (cons 'c '()))))
+
