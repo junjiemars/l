@@ -67,10 +67,14 @@
 				(* n (factorial1 (- n 1))))))
 
 
-(let* ([f (lambda (x) (cons 'a x))]
-       [g (lambda (x) (cons 'b (f x)))]
-       [h (lambda (x) (g (cons 'c x)))])
-	(cons 'd (step) (h '())))
+(define step-expr
+	(lambda ()
+		(letrec ([f (lambda (x) (cons 'a x))]
+						 [g (lambda (x) (cons 'b (f x)))]
+						 [h (lambda (x) (g (cons 'c x)))])
+			(cons 'd (h '())))))
+
+;; (begin (step) (step-expr))
 
 ;;; (cons 'd (h '()))
 ;;; (cons 'd (g (cons 'c '())))
