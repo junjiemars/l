@@ -11,13 +11,14 @@ mix_lib_c_out := mixc
 mix_lib_opt := -shared -fPIC
 
 LDFLAGS += -L$(CURDIR)
-LDLIBS = -lmix -lm -ldl -lutil -lssl -lpthread -lcrypto
+LDLIBS = -lm -ldl -lutil -lssl -lpthread -lcrypto
 LD_LIBRARY_PATH := LD_LIBRARY_PATH=$(CURDIR)
+ldlibs_test = -L$(CURDIR) -lmix
 
 ifeq ($(shell uname), Darwin)
 	mix_lib_out := libmix.dylib
 	mix_lib_opt := -dynamiclib
-	LDLIBS = -lmix -lssl -lcrypto
+	LDLIBS = -lm $(shell pkg-config --libs openssl)
 else ifeq ($(OS), Windows_NT)
 	mix_bin_out := mix.exe
 	mix_lib_out := libmix.lib
@@ -61,7 +62,7 @@ $(mix_bin_out): $(mix_obj)
 
 mix_shared_deps := m1.o m2.o mixlib.o $(libgambit.a)
 $(mix_lib_out): $(mix_shared_deps)
-	$(CC) -o $@ $(mix_lib_opt) $^ -L/opt/local/lib -lm -ldl -lutil -lssl -lcrypto
+	$(CC) -o $@ $(mix_lib_opt) $^ $(LDFLAGS) $(LDLIBS)
 
 mixlib.c: m2.scm
 	$(gsc) -link -o $@ $^
@@ -70,7 +71,7 @@ mixlib.o: m1.c m2.c mixlib.c
 	$(gsc) -obj -cc-options "-D___SHARED" $^
 
 $(mix_lib_c_out): test_mix_lib.c mix_lib
-	$(CC) $(CFLAGS) $(INC) $< -o $@ $(LDFLAGS) $(LDLIBS)
+	$(CC) $(CFLAGS) $(INC) $< -o $@ $(ldlibs_test)
 
 
 clean:
