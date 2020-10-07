@@ -2,8 +2,10 @@
 
 (c-declare "extern int power_of_2 (int);")
 
-(define pow2 (c-lambda (int)
-                       int "power_of_2"))
+(define pow2
+  (c-lambda
+   (int)
+   int "power_of_2"))
 
 (define (twice x)
   (cons x x))

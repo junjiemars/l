@@ -1,6 +1,6 @@
-;;; 
+;;;
 ;;; make clean test
-;;; 
+;;;
 
 (c-declare #<<c-declare-end
 

@@ -17,7 +17,7 @@ LD_LIBRARY_PATH := LD_LIBRARY_PATH=$(CURDIR)
 ifeq ($(shell uname), Darwin)
 	mix_lib_out := libmix.dylib
 	mix_lib_opt := -dynamiclib
-	LDLIBS = -lmix
+	LDLIBS = -lmix -lssl -lcrypto
 else ifeq ($(OS), Windows_NT)
 	mix_bin_out := mix.exe
 	mix_lib_out := libmix.lib
@@ -61,7 +61,7 @@ $(mix_bin_out): $(mix_obj)
 
 mix_shared_deps := m1.o m2.o mixlib.o $(libgambit.a)
 $(mix_lib_out): $(mix_shared_deps)
-	$(CC) -o $@ $(mix_lib_opt) $^ -lm -ldl -lutil
+	$(CC) -o $@ $(mix_lib_opt) $^ -L/opt/local/lib -lm -ldl -lutil -lssl -lcrypto
 
 mixlib.c: m2.scm
 	$(gsc) -link -o $@ $^
