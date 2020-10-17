@@ -19,19 +19,20 @@
 - [[https://www.cs.cmu.edu/Groups/AI/html/cltl/clm/node162.html][17.5. Fill Pointers]]
 ** References
 - [[https://www.cs.cmu.edu/Groups/AI/html/cltl/clm/index.html][Common Lisp the Language, 2nd Edition]]
-* Gambit
+* Scheme
+*** Gambit
 
-** Tutorial
+*** Tutorial
 
 #+BEGIN_SRC sh
 # make executable
 make -Cgambitc/hi clean test
 #+END_SRC
 
-** References
+*** References
 - [[https://schemers.org/Documents/Standards/R5RS/HTML/][R5RS]]
 - [[http://www.gambitscheme.org/wiki/index.php/Main_Page][Gambit Main Page]]
-- [[http://www.iro.umontreal.ca/~gambit/doc/gambit.html#GSC][Gambit Manual]]
-* Chez
+- [[http://www.iro.umontreal.ca/~gambit/doc/gambit.html#GSC][Gambit 
+** Chez
 
 https://scheme.com/tspl4/
