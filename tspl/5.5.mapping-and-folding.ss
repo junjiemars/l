@@ -33,3 +33,13 @@
       '(1 2 3)
       '(2 3 4)
       '(3 4 5))
+
+(define map2
+  (lambda (f ls)
+    (trace-let m1 ([ls ls])
+               (if (null? ls)
+                   '()
+                   (cons (f (car ls))
+                         (m1 (cdr ls)))))))
+
+(map2 abs '(1 -2 3 -4))
