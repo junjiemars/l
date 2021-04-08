@@ -1,13 +1,17 @@
+#
+# make -k -C cl/hi clean test
+#
+
 
 hi_bin := hi
-ifeq ($(OS), Windows_NT)
+ifeq (Windows_NT, $(OS))
 hi_bin := hi.exe
 endif
 
 cli ?= sbcl
 
-hi_dep := hi.asd \
-          package.lisp \
+hi_dep := hi.asd																\
+          package.lisp													\
           hi.lisp
 
 $(hi_bin): $(cli)-make.lisp $(hi_dep)
