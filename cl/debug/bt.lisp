@@ -13,3 +13,12 @@
 (defun male (n)
 	(cond ((zerop n) 0)
 				(t (- n (female (male (1- n)))))))
+
+
+(trace female)
+(female 3)
+(trace male)
+
+
+(trace)
+(untrace female male)

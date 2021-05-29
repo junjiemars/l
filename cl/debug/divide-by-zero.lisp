@@ -1,3 +1,8 @@
+;;; 1. compile and load
+;;; 2. `declare'
+;;; 3. (foo 1) -> error
+
+
 (defparameter *quux* 42)
 
 (defun foo (x)
@@ -12,3 +17,5 @@
 
 (defun baz (v w)
   (/ v w))
+
+
