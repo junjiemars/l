@@ -15,9 +15,21 @@
 ** Language
 *** fill-pointer
 
-**** References
+*** References
 - [[https://www.cs.cmu.edu/Groups/AI/html/cltl/clm/node162.html][17.5. Fill Pointers]]
 
+** quicklisp
+
+*** New a Project's Skeleton
+
+
+*** References
+		:PROPERTIES:
+		:CUSTOM_ID: common-lisp-quicklisp
+		:END:
+
+
+		
 ** SBCL
 
 
