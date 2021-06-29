@@ -1,4 +1,4 @@
 ;;;; package.lisp
 
-(defpackage #:csv-gen
+(defpackage #:mole
   (:use #:cl))
