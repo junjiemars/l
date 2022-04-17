@@ -4,19 +4,24 @@
 
 (define NOT (lambda (x) (x FALSE TRUE)))
 
-(NOT TRUE)
-(NOT FALSE)
+(eq? (NOT TRUE) (NOT (NOT FALSE)))
 
 (define AND (lambda (x y) (x y FALSE)))
 
-(AND TRUE TRUE)
-(AND FALSE TRUE)
-(AND TRUE FALSE)
-(AND FALSE FALSE)
+(eq? (AND TRUE TRUE) TRUE)
+(eq? (AND FALSE TRUE) FALSE)
+(eq? (AND TRUE FALSE) FALSE)
+(eq? (AND FALSE FALSE) FALSE)
 
-(define OR (lambda (x y) (x TRUE FALSE)))
+(define OR (lambda (x y) (x TRUE y)))
 
-(OR TRUE TRUE)
-(OR FALSE TRUE)
-(OR TRUE FALSE)
-(OR FALSE FALSE)
+(eq? (OR TRUE TRUE) TRUE)
+(eq? (OR FALSE TRUE) TRUE)
+(eq? (OR TRUE FALSE) TRUE)
+(eq? (OR FALSE FALSE) FALSE)
+
+
+(define IFTHENELSE (lambda (p x y) (p x y)))
+
+(= (IFTHENELSE TRUE 1 2) 1)
+(= (IFTHENELSE FALSE 1 2) 2)
