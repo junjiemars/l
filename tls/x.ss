@@ -258,12 +258,12 @@
           ((atom? (car lst))
            (cond ((eq? a (car lst))
                   (rember* a (cdr lst)))
-                 (else (cons (car list)
+                 (else (cons (car lst)
                              (rember* a (cdr lst))))))
-          (else (cons (car lst)
+          (else (cons (rember* a (car lst))
                       (rember* a (cdr lst)))))))
 
-(rember* 'a '((c) a ((t)) a (a (h)) a))
+(rember* 'a '((x) a ((x y a)) (((x a y)))))
 
 
 (define insertR*
