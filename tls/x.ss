@@ -373,3 +373,59 @@
                      (eqlist1? (cdr lst1) (cdr lst2)))))))
 
 (eqlist1? '(a ((a)) (((a)))) '(a ((a)) (((a)))))
+
+(define numbered?
+  (lambda (s)
+    (cond ((atom? s) (number? s))
+          (else (and (numbered? (car s))
+                     (numbered? (car (cdr (cdr s)))))))))
+
+(numbered? '(1 + 2))
+
+(define value
+  (lambda (s)
+    (cond ((atom? s) s)
+          ((eq? (cadr s) '+)
+           (o+ (value (car s)) (value (caddr s))))
+          ((eq? (cadr s) '*)
+           (o* (value (car s)) (value (caddr s))))
+          (else (o^ (value (cadr s))
+                    (value (caddr s)))))))
+
+(value '1)
+(value '(1 + (2 + 3)))
+(value '(2 * (3 + 1)))
+
+(define 1st-sub-exp
+  (lambda (s)
+    (cadr s)))
+
+(1st-sub-exp '(+ (* 2 3) 4))
+
+(define 2nd-sub-exp
+  (lambda (s)
+    (caddr s)))
+
+(2nd-sub-exp '(+ 2 (* 3 4)))
+(2nd-sub-exp (2nd-sub-exp '(+ 2 (* 3 4 (+ 5 6)))))
+
+(define operator
+  (lambda (s)
+    (car s)))
+
+(operator '(+ 2 (* 3 4)))
+
+(define value1
+  (lambda (s)
+    (cond ((atom? s) s)
+          ((eq? (operator s) '+)
+           (o+ (value1 (1st-sub-exp s))
+               (value1 (2nd-sub-exp s))))
+          ((eq? (operator s) '*)
+           (o* (value1 (1st-sub-exp s))
+               (value1 (2nd-sub-exp s))))
+          (else (o^ (value1 (1st-sub-exp s))
+                    (value1 (2nd-sub-exp s)))))))
+
+(value1 '(+ 1 (* 2 3)))
+(value1 '(+ 1 (* 2 3 (+ 4 5))))
