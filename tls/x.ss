@@ -25,7 +25,7 @@
           (else (cons (car lst)
                       (insertR new old (cdr lst)))))))
 
-(insertR 'X 'a '(x y z a b c))
+(insertR '_ 'a '(x y z a b c))
 
 (define multiinsertR
   (lambda (new old lst)
@@ -35,7 +35,7 @@
           (else (cons (car lst)
                       (multiinsertR new old (cdr lst)))))))
 
-(multiinsertR 'X 'a '(x y z a b c a e f))
+(multiinsertR '_ 'a '(x y z a b c a e f))
 
 (define insertL
   (lambda (new old lst)
@@ -44,7 +44,7 @@
           (else (cons (car lst)
                       (insertL new old (cdr lst)))))))
 
-(insertL 'X 'a '(x y z a b c a e f))
+(insertL '_ 'a '(x y z a b c a e f))
 
 (define multiinsertL
   (lambda (new old lst)
@@ -54,8 +54,8 @@
           (else (cons (car lst)
                       (multiinsertL new old (cdr lst)))))))
 
-(multiinsertL 'X 'a '(x y z a b c a e f))
-(multiinsertL 'X 'a '(a x y z a b c a e f))
+(multiinsertL '_ 'a '(x y z a b c a e f))
+(multiinsertL '_ 'a '(a x y z a b c a e f))
 
 (define subst1
   (lambda (new old lst)
@@ -64,7 +64,7 @@
           (else (cons (car lst)
                       (subst1 new old (cdr lst)))))))
 
-(subst1 'X 'a '(x y z a b c a e f))
+(subst1 '_ 'a '(x y z a b c a e f))
 
 (define multisubst1
   (lambda (new old lst)
@@ -74,7 +74,7 @@
           (else (cons (car lst)
                       (multisubst1 new old (cdr lst)))))))
 
-(multisubst1 'X 'a '(x y z a b c a e f))
+(multisubst1 '_ 'a '(x y z a b c a e f))
 
 
 (and (atom? '()) (null? '()) (list? '()))
@@ -279,4 +279,97 @@
           (else (cons (insertR* new old (car lst))
                       (insertR* new old (cdr lst)))))))
 
-(insertR* 'X 'a '((x y) a ((z a)) (((x))) (((x a y)))))
+(insertR* '_ 'a '((x y) a ((z a)) (((x))) (((x a y)))))
+
+
+(define occur*
+  (lambda (a lst)
+    (cond ((null? lst) 0)
+          ((atom? (car lst))
+           (cond ((eq? a (car lst))
+                  (add1 (occur* a (cdr lst))))
+                 (else (occur* a (cdr lst)))))
+          (else (+ (occur* a (car lst))
+                   (occur* a (cdr lst)))))))
+
+(occur* 'a '((a) ((x a y)) (((x y a)))))
+
+
+(define subst1*
+  (lambda (new old lst)
+    (cond ((null? lst) '())
+          ((atom? (car lst))
+           (cond ((eq? old (car lst))
+                  (cons new (subst1* new old (cdr lst))))
+                 (else (cons (car lst)
+                             (subst1* new old (cdr lst))))))
+          (else (cons (subst1* new old (car lst))
+                      (subst1* new old (cdr lst)))))))
+
+(subst1* '_ 'a '(a (a b) ((b a c)) (((b c a)))))
+
+(define insertL*
+  (lambda (new old lst)
+    (cond ((null? lst) '())
+          ((atom? (car lst))
+           (cond ((eq? old (car lst))
+                  (cons new (cons old
+                                  (insertL* new old (cdr lst)))))
+                 (else (cons (car lst)
+                             (insertL* new old (cdr lst))))))
+          (else (cons (insertL* new old (car lst))
+                      (insertL* new old (cdr lst)))))))
+
+(insertL* '_ 'a '(a (x a) ((x y a)) (((x a y)))))
+
+
+(define member?
+  (lambda (a lst)
+    (cond ((null? lst) #f)
+          ((atom? (car lst))
+           (or (eq? a (car lst))
+               (member? a (cdr lst))))
+          (else (or (member? a (car lst))
+                    (member? a (cdr lst)))))))
+
+(member? 'a '(x ((y)) (((x y a)))))
+
+(define leftmost
+  (lambda (lst)
+    (cond ((null? lst) '())
+          ((atom? (car lst)) (car lst))
+          (else (leftmost (car lst))))))
+
+(leftmost '((((x))) ((y)) y))
+
+
+(define eqlist?
+  (lambda (lst1 lst2)
+    (cond ((and (null? lst1) (null? lst2)) #t)
+          ((or (null? lst1) (null? lst2)) #f)
+          ((and (atom? (car lst1)) (atom? (car lst2)))
+           (and (eqan? (car lst1) (car lst2))
+                (eqlist? (cdr lst1) (cdr lst2))))
+          ((or (atom? (car lst1)) (atom? (car lst2))) #f)
+          (else (and (eqlist? (car lst1) (car lst2))
+                     (eqlist? (cdr lst1) (cdr lst2)))))))
+
+(eqlist? '(a ((a)) (((a)))) '(a ((a)) (((a)))))
+
+(define equal1?
+  (lambda (s1 s2)
+    (cond ((and (atom? s1) (atom? s2))
+           (eqan? s1 s2))
+          ((or (atom? s1) (atom? s2)) #f)
+          (else (eqlist? s1 s2)))))
+
+(equal1? '(a ((a)) (((a)))) '(a ((a)) (((a)))))
+
+(define eqlist1?
+  (lambda (lst1 lst2)
+    (cond ((and (null? lst1) (null? lst2)) #t)
+          ((or (null? lst1) (null? lst2)) #f)
+          (else (and (equal? (car lst1) (car lst2))
+                     (eqlist1? (cdr lst1) (cdr lst2)))))))
+
+(eqlist1? '(a ((a)) (((a)))) '(a ((a)) (((a)))))
