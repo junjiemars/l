@@ -429,3 +429,109 @@
 
 (value1 '(+ 1 (* 2 3)))
 (value1 '(+ 1 (* 2 3 (+ 4 5))))
+
+
+(define sero?
+  (lambda (n)
+    (null? n)))
+
+(define edd1
+  (lambda (n)
+    (cons '() n)))
+
+(define zub1
+  (lambda (n)
+    (cdr n)))
+
+(define oo+
+  (lambda (n m)
+    (cond ((sero? m) n)
+          (else (edd1 (oo+ n (zub1 m)))))))
+
+(edd1 (zub1 (oo+ '(() ()) '(() () ()))))
+
+(define set?
+  (lambda (lat)
+    (cond ((null? lat) #t)
+          ((member? (car lat) (cdr lat)) #f)
+          (else (set? (cdr lat))))))
+
+(set? '(a b c a))
+(set? '(a b c))
+
+(define makeset
+  (lambda (lat)
+    (cond ((null? lat) '())
+          ((member? (car lat) (cdr lat))
+           (makeset (cdr lat)))
+          (else (cons (car lat)
+                      (makeset (cdr lat)))))))
+
+(makeset '(a b c d a e))
+
+(define makeset1
+  (lambda (lat)
+    (cond ((null? lat) '())
+          (else (cons (car lat)
+                      (makeset1 (multirember (car lat)
+                                            (cdr lat))))))))
+
+(makeset1 '(a b c d a e))
+(makeset1 '(a b c d a e 1 f 1))
+
+(define subset?
+  (lambda (set1 set2)
+    (cond ((null? set1) #t)
+          ((member? (car set1) set2)
+           (subset? (cdr set1) set2))
+          (else #f))))
+
+(subset? '(a b) '(c d a b))
+
+(define eqset?
+  (lambda (set1 set2)
+    (and (subset? set1 set2)
+         (subset? set2 set1))))
+
+(eqset? '(a b c) '(a b c))
+
+
+(define interset?
+  (lambda (set1 set2)
+    (cond ((null? set1) #f)
+          ((member? (car set1) set2) #t)
+          (else (interset? (cdr set1) set2)))))
+
+(interset? '(a) '(b c d a))
+(interset? '(a) '())
+
+(define interset
+  (lambda (set1 set2)
+    (cond ((null? set1) '())
+          ((member? (car set1) set2)
+           (cons (car set1)
+                 (interset (cdr set1) set2)))
+          (else (interset (cdr set1) set2)))))
+
+(interset '(a d) '(b c a e d f))
+
+(define union
+  (lambda (set1 set2)
+    (cond ((null? set1) set2)
+          ((member? (car set1) set2)
+           (union (cdr set1) set2))
+          (else (cons (car set1)
+                      (union (cdr set1) set2))))))
+
+(union '(a b) '(c d e a))
+
+;;; relative complement: S \ T
+(define rcset
+  (lambda (set1 set2)
+    (cond ((null? set1) '())
+          ((member? (car set1) set2)
+           (rcset (cdr set1) set2))
+          (else (cons (car set1)
+                      (rcset (cdr set1) set2))))))
+
+(rcset '(a b) '(b c d))
