@@ -25,3 +25,22 @@
 
 (= (IFTHENELSE TRUE 1 2) 1)
 (= (IFTHENELSE FALSE 1 2) 2)
+
+(define N0 (lambda (s z) z))
+
+(define N1 (lambda (s z) (s z)))
+
+(define N2 (lambda (s z) (s (s z))))
+
+(define S (lambda (n)
+						(lambda (f)
+							(lambda (x)
+								(f ((n f) x))))))
+
+
+(define λ 'lambda)(y (w y x))
+
+(define-syntax λ
+  (syntax-rules ()
+    ((_ args body ...)
+     (lambda args body ...))))
