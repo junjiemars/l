@@ -535,3 +535,37 @@
                       (rcset (cdr set1) set2))))))
 
 (rcset '(a b) '(b c d))
+
+(define a-pair?
+  (lambda (x)
+    (cond ((atom? x) #f)
+          ((null? x) #f)
+          ((null? (cdr x)) #f)
+          ((null? (cdr (cdr x))) #t)
+          (else #f))))
+
+(a-pair? '(a '(b c)))
+
+(define first
+  (lambda (p)
+    (car p)))
+
+(first '(a b))
+
+(define second
+  (lambda (p)
+    (car (cdr p))))
+
+(second '(a b))
+
+(define third
+  (lambda (p)
+    (car (cdr (cdr p)))))
+
+(third '(a . (b . (c (d e)))))
+
+(define build-pair
+  (lambda (s1 s2)
+    (cons s1 (cons s2 '()))))
+
+(build-pair 'a (build-pair 'b (build-pair 'c '())))
