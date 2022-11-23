@@ -42,7 +42,7 @@
 
 
 (define XOR (lambda (x y) (OR (AND x (NOT y)) (AND (NOT x) y))))
-(define XOR1 (OR (AND x y) (AND (NOT x) (NOT y))))
+(define XOR1 (lambda (x y) (IF x (NOT y) y)))
 
 ;;; XOR TRUE TRUE
 ;;; (OR (AND x (NOT y)) (AND (NOT x) y)) TRUE TRUE
@@ -51,22 +51,45 @@
 ;;; (OR FALSE FALSE)
 ;;; FALSE
 
+(eq? (XOR2 TRUE TRUE) FALSE)
+(eq? (XOR2 FALSE TRUE) TRUE)
 
-(define N0 (lambda (f) x))
-(define N1 (lambda (f x) (f x)))
-(define N2 (lambda (f x) (f (f x))))
+(define ZERO (lambda (f) (lambda (x) x)))
+(define SUCC (lambda (n) (lambda (f) (lambda (x) (f ((n f) x))))))
+
+(define N0 ZERO)
+(define N1 (lambda (f) (lambda (x) (f x))))
+(define N2 (lambda (f) (lambda (x) (f (f x)))))
 (define N3 (lambda (f x) (f (f (f x)))))
 
-(define S (lambda (n f x) (f (n f x))))
+(define PLUS (lambda (n1 n2) (n1 (SUCC n2))))
 
-;;; S N0
-;;; (lambda (n f x) (f (n f x))) N0
-;;; (f (N0 f x))
-;;; (f ((lambda (f x) x) f x))
-;;; (f x)
 
-;; (eq? N1 (S N0))
+(define AI (lambda (x) 0))
 
+
+;;; SUCC ZERO
+;;; (λn. λf. λx. f ((n f) x))  ZERO
+;;; λf. λx. f ((ZERO f) x)
+;;; λf. λx. f (((λf. λx. x) f) x)
+;;; λf. λx. f ((λx. x) x)
+;;; λf. λx. f x
+
+;;; ((N1 SUCC) 0)
+;;; ((λ.f λ.x f x) SUCC) 0
+;;; (λ.x SUCC x) 0
+;;; SUCC 0
+;;; (λ.n λ.f λ.x f (n f x)) 0
+;;; λ.f λ.x f (0 f x)
+
+;;; PLUS N1 N2
+;;; (lambda (n1 n2) (n1 (SUCC n2))) N1 N2
+;;; (N1 (SUCC N2))
+;;; (N1 N3)
+;;; N3
+
+(= (((SUCC N0) 1+) 0) ((N1 1+) 0))
+(= (((PLUS N1 N2) 1+) 0) 3)
 
 
 ;;  ( λx . x  x) ( λy. y y)
